@@ -123,6 +123,7 @@ const WeatherScreen = ({ route }) => {
   const getWeatherData = async (newLat, newLong) => {
     const url = ApiConfig.BASE_URL_NVM + ApiConfig.WEATHERDETAILS.nslgetWeatherDetailsV1
     if (isConnected) {
+      setLoader(true)
       const body = {
         latitude: newLat,
         longitude: newLong,
@@ -135,7 +136,9 @@ const WeatherScreen = ({ route }) => {
         setHourlyData(finalResponse.response.hourlyBaseWeatherInfo)
         let res = await getDetailsFromLatlong(newLat, newLong)
         setCityDet(res)
+        setLoader(false)
       } else {
+        setLoader(false)
         SimpleToast.show(!isNullOrEmptyNOTTrim(finalResponse?.message) ? finalResponse?.message : translate('Something_went_wrong'));
       }
     } else {
