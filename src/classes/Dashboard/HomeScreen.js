@@ -1,7 +1,5 @@
 //import liraries
 import React, { Component, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { changeLanguage, translate } from '../../Localization/Localisation';
 import { useDispatch } from 'react-redux';
