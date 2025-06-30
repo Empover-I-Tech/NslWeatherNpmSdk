@@ -14,10 +14,11 @@ import { Calendar } from 'react-native-calendars';
 import ApiConfig, { MAP_MY_INDIA_URL, STATUS_CODE_103, STATUS_CODE_SUCCESS_200 } from '../../Networks/ApiConfig';
 import ApiService from '../../Networks/ApiService';
 import { getFromAsyncStorage, isNullOrEmptyNOTTrim, MOBILENUMBER, USER_ID } from '../../Utility/Utils';
-import { Colors } from '../../colors/Colors';
+import {useColors } from '../../colors/Colors';
 
 
 const WeatherScreen = ({ route }) => {
+  const Colors=useColors()
   const navigation = useNavigation()
   const [loader, setLoader] = useState(false)
   const FILTERS = [translate("Days_Forecast_15"), translate("Hourly")]
@@ -308,7 +309,7 @@ const WeatherScreen = ({ route }) => {
               <TouchableOpacity onPress={() => { callLocationNavigation() }}
                 style={[styles.locationContainer, { marginTop: -responsiveHeight(4) }]}>
                 <Image source={require("../../assets/Images/locationImgIcon.png")} style={styles.locationIcon} />
-                <Text style={[styles.locationText, { color: "#000" }]}>
+                <Text style={[styles.locationText, { color: Colors.textColor }]}>
                   {(todayForecast[0]?.city) || '--'}
                 </Text>
               </TouchableOpacity>
@@ -320,17 +321,17 @@ const WeatherScreen = ({ route }) => {
 
                 <View style={styles.weatherDescription}>
 
-                  <Text style={[styles.weatherDescText, { color: 'rgba(255, 181, 1, 1)', fontWeight: "400", minWidth: "80%", fontSize: 15 }]}>
+                  <Text style={[styles.weatherDescText, { color:Colors.yellow_rgba, fontWeight: "400", minWidth: "80%", fontSize: 15 }]}>
                     {todayForecast[0]?.weather_description || "--"}
                   </Text>
 
                   {todayForecast[0]?.max_temp ?
                     <View style={styles.todayForecastMaxTempContainer}>
-                      <Text style={[styles.tempText, { color: "#000", fontSize: 34 }]}>
+                      <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 34 }]}>
                         {Math.round(todayForecast[0]?.max_temp)}
                       </Text>
-                      <Text style={[styles.degreeText, { color: "#000", marginTop: -3 }]}>{"°c"}</Text>
-                    </View> : <Text style={[styles.tempText, { color: "#000" }]}>
+                      <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3 }]}>{"°c"}</Text>
+                    </View> : <Text style={[styles.tempText, { color: Colors.textColor }]}>
                       {'--'}
                     </Text>
                   }
@@ -338,25 +339,25 @@ const WeatherScreen = ({ route }) => {
                   <View style={styles.tempRange}>
                     {todayForecast[0]?.max_temp ?
                       <View style={styles.todaysWeatherContainer}>
-                        <Text style={[styles.rangeText, { color: '#d3d3d3' }]}>
+                        <Text style={[styles.rangeText, { color:Colors.lightish_grey }]}>
                           {`${translate('High')} ${Math.round(todayForecast[0]?.max_temp)}`}
                         </Text>
-                        <Text style={[styles.degree2Text, { color: '#d3d3d3' }]}>{"°"}</Text>
+                        <Text style={[styles.degree2Text, { color: Colors.lightish_grey }]}>{"°"}</Text>
                       </View> :
 
-                      <Text style={[styles.tempText, { color: '#d3d3d3' }]}>
+                      <Text style={[styles.tempText, { color: Colors.lightish_grey }]}>
                         {'--'}
                       </Text>}
                     <View style={styles.divider} />
                     {todayForecast[0]?.min_temp ?
                       <View style={styles.todaysWeatherContainer2}>
-                        <Text style={[styles.rangeText, { color: '#d3d3d3' }]}>
+                        <Text style={[styles.rangeText, { color: Colors.lightish_grey }]}>
                           {`${translate('Low')} ${Math.round(todayForecast[0]?.min_temp)}`}
                         </Text>
-                        <Text style={[styles.degree2Text, { color: '#d3d3d3' }]}>{"°"}</Text>
+                        <Text style={[styles.degree2Text, { color: Colors.lightish_grey }]}>{"°"}</Text>
                       </View> :
 
-                      <Text style={[styles.tempText, { color: '#d3d3d3' }]}>
+                      <Text style={[styles.tempText, { color: Colors.lightish_grey }]}>
                         {'--'}
                       </Text>}
                   </View>
@@ -367,21 +368,21 @@ const WeatherScreen = ({ route }) => {
             <View style={styles.weatherStats}>
               <View style={styles.weatherStatItem}>
                 <Image source={require('../../assets/Images/forceRain.png')} style={styles.weatherStatIcon} />
-                <Text style={[styles.weatherStatText, { color: "#000" }]}>
+                <Text style={[styles.weatherStatText, { color: Colors.textColor }]}>
                   {todayForecast[0]?.speed ? `${todayForecast[0]?.speed}/h` : '--'}
                 </Text>
               </View>
               <View style={styles.divider} />
               <View style={styles.weatherStatItem}>
                 <Image source={require('../../assets/Images/dropIcon.png')} style={styles.weatherStatIcon} />
-                <Text style={[styles.weatherStatText, { color: "#000" }]}>
+                <Text style={[styles.weatherStatText, { color: Colors.textColor }]}>
                   {todayForecast[0]?.humidity ? `${todayForecast[0]?.humidity}%` : '--'}
                 </Text>
               </View>
               <View style={styles.divider} />
               <View style={styles.weatherStatItem}>
                 <Image source={require('../../assets/Images/cloud.png')} style={styles.weatherStatIcon} />
-                <Text style={[styles.weatherStatText, { color: "#000" }]}>
+                <Text style={[styles.weatherStatText, { color: Colors.textColor }]}>
                   {todayForecast[0]?.rain !== undefined ? `${todayForecast[0]?.rain}%` : '--'}
                 </Text>
               </View>
@@ -395,7 +396,7 @@ const WeatherScreen = ({ route }) => {
             setSelectedFilter(translate("Days_Forecast_15"))
             setSelectedWeather('')
           }} activeOpacity={0.5} style={[selectedFilter === translate("Days_Forecast_15") ? styles.tabTextcontainer : styles.tabTextcontainer1, { width: "25%", height: 30 }]}>
-            <Text style={[styles.tabText, { color: selectedFilter === translate("Days_Forecast_15") ? "#fff" : Colors.app_theme_color, }]}>{translate("Days_Forecast_15")}</Text>
+            <Text style={[styles.tabText, { color: selectedFilter === translate("Days_Forecast_15") ? Colors.secondaryColor : Colors.app_theme_color,}]}>{translate("Days_Forecast_15")}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => {
@@ -405,7 +406,7 @@ const WeatherScreen = ({ route }) => {
             }
           }} activeOpacity={0.5} style={[
             selectedFilter === translate("Hourly") ? styles.tabTextcontainer : styles.tabTextcontainer1, { width: "25%", height: 30, marginHorizontal: 5 }]}>
-            <Text style={[styles.tabText, { color: selectedFilter === translate("Hourly") ? "#fff" : Colors.app_theme_color }]}>3 {translate("Hourly")}</Text>
+            <Text style={[styles.tabText, { color: selectedFilter === translate("Hourly") ? Colors.secondaryColor : Colors.app_theme_color}]}>3 {translate("Hourly")}</Text>
           </TouchableOpacity>
 
 
@@ -417,7 +418,7 @@ const WeatherScreen = ({ route }) => {
             }
           }} activeOpacity={0.5} style={[
             selectedFilter === translate('PestForecast') ? styles.tabTextcontainer : styles.tabTextcontainer1, { width: "25%", height: 30, }]}>
-            <Text style={[styles.tabText, { color: selectedFilter === translate('PestForecast') ? "#fff" : Colors.app_theme_color }]}>{translate('PestForecast')}</Text>
+            <Text style={[styles.tabText, { color: selectedFilter === translate('PestForecast') ? Colors.secondaryColor : Colors.app_theme_color}]}>{translate('PestForecast')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -441,7 +442,7 @@ const WeatherScreen = ({ route }) => {
               </View>
             </View>
             <View style={styles.weatherLineDivider} />
-            <Text style={[styles.forecastTemp, { color: "#000", fontWeight: "400", fontSize: 12 }]}>
+            <Text style={[styles.forecastTemp, { color: Colors.textColor, fontWeight: "400", fontSize: 12 }]}>
               {translate("Showing_infestation_Forecast")}
             </Text>
             <View style={styles.locationDetailsMainContainer}>
@@ -464,16 +465,16 @@ const WeatherScreen = ({ route }) => {
               <View style={styles.cropsListMaincontainer}>
                 <View style={styles.calendarDropDownMainContainer}>
                   <Text style={styles.sowingdateText}>{translate("Crop")}</Text>
-                  <TouchableOpacity onPress={() => setShowDropDowns(true)} style={[styles.textInputContainer, { borderColor: "#D6D6D6" }]}>
+                  <TouchableOpacity onPress={()=>setShowDropDowns(true)} style={[styles.textInputContainer, { borderColor: Colors.lightish_grey }]}>
                     <Text style={styles.selectCropTextInput}>{selectedCrop != undefined && selectedCrop != translate('select') ? selectedCrop : translate('select')}</Text>
-                    <Image source={require('../../assets/Images/down_arow.png')} style={[styles.dropDownIcon, { tintColor: "#B4B4B4" }]} />
+                    <Image source={require('../../assets/Images/down_arow.png')} style={[styles.dropDownIcon, { tintColor:Colors.black_color }]} />
                   </TouchableOpacity>
                 </View>
                 <View style={styles.calendarDropDownMainContainer}>
                   <Text style={styles.sowingdateText}>{translate("sowing_date")}</Text>
-                  <TouchableOpacity onPress={handleDateModal} style={[styles.textInputContainer, { borderColor: "#D6D6D6" }]}>
+                  <TouchableOpacity onPress={handleDateModal} style={[styles.textInputContainer, { borderColor: Colors.lightish_grey }]}>
                     <Text style={styles.selectCropTextInput}>{selectedDatePest}</Text>
-                    <Image source={require('../../assets/Images/calendarIcon.png')} style={[styles.dropDownIcon, { tintColor: "#000" }]} />
+                    <Image source={require('../../assets/Images/calendarIcon.png')} style={[styles.dropDownIcon, { tintColor: Colors.textColor }]} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -527,7 +528,7 @@ const WeatherScreen = ({ route }) => {
                   <View style={[styles.locationTimeContainer, { marginBottom: 0, }]}>
 
                     <View style={[styles.locationContainer, { flexDirection: "column", alignItems: "center", }]}>
-                      <Text style={[styles.tempText, { color: "#000", marginHorizontal: 0, textAlign: "left", alignSelf: "flex-start" }]}>
+                      <Text style={[styles.tempText, { color: Colors.textColor, marginHorizontal: 0, textAlign: "left", alignSelf: "flex-start" }]}>
                         {selectedWeather?.data[0]?.displayDay}
                       </Text>
                       <Text style={styles.rangeText}>
@@ -540,7 +541,7 @@ const WeatherScreen = ({ route }) => {
                           callLocationNavigation()
                         }} style={styles.locationContainer}>
                         <Image source={require("../../assets/Images/locationImgIcon.png")} style={styles.locationIcon} />
-                        <Text style={[styles.locationText, { color: "#000" }]}>
+                        <Text style={[styles.locationText, { color: Colors.textColor }]}>
                           {(selectedWeather?.data[0]?.city) || '--'}
                         </Text>
                       </TouchableOpacity>
@@ -554,7 +555,7 @@ const WeatherScreen = ({ route }) => {
                           }
                         }}
                         style={[{ backgroundColor: Colors.app_theme_color, borderRadius: 5, padding: 5, alignItems: "center", justifyContent: "center", marginLeft: 10 }]}>
-                        <Image style={[{ height: 10, width: 10, tintColor: "#fff" }]} resizeMode='contain' source={selectedWeather === item ? require('../../assets/Images/up_arrow.png') : require('../../assets/Images/down_arow.png')}></Image>
+                        <Image style={[{ height: 10, width: 10, tintColor:Colors.secondaryColor }]} resizeMode='contain' source={selectedWeather === item ? require('../../assets/Images/up_arrow.png') : require('../../assets/Images/down_arow.png')}></Image>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -565,43 +566,43 @@ const WeatherScreen = ({ route }) => {
 
 
                       <View style={styles.weatherDescription}>
-                        <Text style={[styles.weatherDescText, { color: 'rgba(255, 181, 1, 1)', fontFamily: "Poppins-SemiBold", fontWeight: "400", minWidth: "80%", fontSize: 15 }]}>
+                        <Text style={[styles.weatherDescText, { color:Colors.yellow_rgba, fontFamily: "Poppins-SemiBold", fontWeight: "400", minWidth: "80%", fontSize: 15 }]}>
                           {selectedWeather?.data[0]?.weather_description || "--"}
                         </Text>
 
 
                         {selectedWeather?.data[0]?.max_temp ?
                           <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Text style={[styles.tempText, { color: "#000", fontSize: 34 }]}>
+                            <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 34 }]}>
                               {Math.round(selectedWeather?.data[0]?.max_temp)}
                             </Text>
-                            <Text style={[styles.degreeText, { color: "#000", marginTop: -3 }]}>{"°c"}</Text>
-                          </View> : <Text style={[styles.tempText, { color: "#000" }]}>
+                            <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3 }]}>{"°c"}</Text>
+                          </View> : <Text style={[styles.tempText, { color: Colors.textColor }]}>
                             {'--'}
                           </Text>}
 
                         <View style={styles.tempRange}>
                           {selectedWeather?.data[0]?.max_temp ?
                             <View style={{ flexDirection: "row", alignItems: "center", marginRight: 5 }}>
-                              <Text style={[styles.rangeText, { color: '#d3d3d3' }]}>
+                              <Text style={[styles.rangeText, { color: Colors.lightish_grey }]}>
                                 {`${translate('High')} ${Math.round(selectedWeather?.data[0]?.max_temp)}`}
                               </Text>
-                              <Text style={[styles.degree2Text, { color: '#d3d3d3' }]}>{"°"}</Text>
+                              <Text style={[styles.degree2Text, { color: Colors.lightish_grey }]}>{"°"}</Text>
                             </View> :
 
-                            <Text style={[styles.tempText, { color: '#d3d3d3' }]}>
+                            <Text style={[styles.tempText, { color: Colors.lightish_grey }]}>
                               {'--'}
                             </Text>}
                           <View style={styles.divider} />
                           {selectedWeather?.data[0]?.min_temp ?
                             <View style={{ flexDirection: "row", alignItems: 'center', marginLeft: 5 }}>
-                              <Text style={[styles.rangeText, { color: '#d3d3d3' }]}>
+                              <Text style={[styles.rangeText, { color: Colors.lightish_grey }]}>
                                 {`${translate('Low')} ${Math.round(selectedWeather?.data[0]?.min_temp)}`}
                               </Text>
-                              <Text style={[styles.degree2Text, { color: '#d3d3d3' }]}>{"°"}</Text>
+                              <Text style={[styles.degree2Text, { color: Colors.lightish_grey }]}>{"°"}</Text>
                             </View> :
 
-                            <Text style={[styles.tempText, { color: '#d3d3d3' }]}>
+                            <Text style={[styles.tempText, { color: Colors.lightish_grey }]}>
                               {'--'}
                             </Text>}
                         </View>
@@ -614,26 +615,26 @@ const WeatherScreen = ({ route }) => {
                   <View style={styles.weatherStats}>
                     <View style={styles.weatherStatItem}>
                       <Image source={require('../../assets/Images/forceRain.png')} style={styles.weatherStatIcon} />
-                      <Text style={[styles.weatherStatText, { color: "#000" }]}>
+                      <Text style={[styles.weatherStatText, { color: Colors.textColor }]}>
                         {selectedWeather?.data[0]?.speed ? `${selectedWeather?.data[0]?.speed}/h` : '--'}
                       </Text>
                     </View>
                     <View style={styles.divider} />
                     <View style={styles.weatherStatItem}>
                       <Image source={require('../../assets/Images/dropIcon.png')} style={styles.weatherStatIcon} />
-                      <Text style={[styles.weatherStatText, { color: "#000" }]}>
+                      <Text style={[styles.weatherStatText, { color: Colors.textColor }]}>
                         {selectedWeather?.data[0]?.humidity ? `${selectedWeather?.data[0]?.humidity}%` : '--'}
                       </Text>
                     </View>
                     <View style={styles.divider} />
                     <View style={styles.weatherStatItem}>
                       <Image source={require('../../assets/Images/cloud.png')} style={styles.weatherStatIcon} />
-                      <Text style={[styles.weatherStatText, { color: "#000" }]}>
+                      <Text style={[styles.weatherStatText, { color: Colors.textColor }]}>
                         {selectedWeather?.data[0]?.rain !== undefined ? `${selectedWeather?.data[0]?.rain}%` : '--'}
                       </Text>
                     </View>
                   </View>
-                  <View style={{ width: '100%', height: 1, borderBottomWidth: 0.5, borderColor: "#d3d3d3", marginTop: 10 }} />
+                  <View style={{ width: '100%', height: 1, borderBottomWidth: 0.5, borderColor:Colors.lightgrey, marginTop: 10 }} />
                   <FlatList
                     data={item?.data}
                     nestedScrollEnabled={true}
@@ -646,16 +647,16 @@ const WeatherScreen = ({ route }) => {
                             justifyContent: "center",
                           }
                         } >
-                          <Text style={[styles.forecastTemp, { color: "#000", width: 25, }]}>
+                          <Text style={[styles.forecastTemp, { color: Colors.textColor, width: 25, }]}>
                             {Math.round(subItem?.max_temp) || '--'}
                           </Text>
-                          <Text style={[styles.degreeText, { color: "#000", marginTop: -3 }]}>{"°c"}</Text>
+                          <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3 }]}>{"°c"}</Text>
                         </View>
                         {subItem?.image &&
                           <Image source={{ uri: subItem?.image }} style={styles.forecastIcon} />
                         }
 
-                        <Text style={[styles.forecastTemp, { color: "#000", fontFamily: "Poppins-Regular", fontWeight: "400" }]}>
+                        <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily: "Poppins-Regular", fontWeight: "400" }]}>
                           {subItem.time}
                         </Text>
                       </View>
@@ -683,7 +684,7 @@ const WeatherScreen = ({ route }) => {
                     <View style={styles.tempContainer}>
                       {(
                         <View style={styles.tempWrapper}>
-                          <Text style={[styles.tempText, { color: "#000" }]}>
+                          <Text style={[styles.tempText, { color:Colors.textColor }]}>
                             {selectedFilter === translate("Days_Forecast_15") ? item?.displayDay : item?.data[0]?.displayDay || '--'}
                           </Text>
                         </View>
@@ -703,14 +704,14 @@ const WeatherScreen = ({ route }) => {
                         resizeMode: "contain"
                       }} />
                       <View style={styles.tempWrapper}>
-                        <Text style={[styles.tempText, { color: "#000", fontSize: 27, marginTop: 10 }]}>
+                        <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 27, marginTop: 10 }]}>
                           {Math.round(selectedFilter !== translate("Days_Forecast_15") ? item?.data[0]?.max_temp : item?.max_temp) || '--'}
                         </Text>
-                        <Text style={[styles.degreeText, { color: "#000", marginTop: 5 }]}>{"°c"}</Text>
+                        <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: 5 }]}>{"°c"}</Text>
                       </View>
                     </View>
                     {selectedFilter !== translate("Days_Forecast_15") && <View style={[{ backgroundColor: Colors.app_theme_color, borderRadius: 5, padding: 5, alignItems: "center", justifyContent: "center" }]}>
-                      <Image style={[{ height: 10, width: 10, tintColor: "#fff" }]} resizeMode='contain' source={selectedWeather === item ? require('../../assets/Images/up_arrow.png') : require('../../assets/Images/up_arrow.png')}></Image>
+                      <Image style={[{ height: 10, width: 10, tintColor:Colors.secondaryColor }]} resizeMode='contain' source={selectedWeather === item ? require('../../assets/Images/up_arrow.png') : require('../../assets/Images/up_arrow.png')}></Image>
 
                     </View>}
                   </TouchableOpacity>
@@ -718,7 +719,7 @@ const WeatherScreen = ({ route }) => {
             }}
           />
         }
-        <Modal visible={isCalendarVisible} transparent animationType="slide">
+         <Modal visible={isCalendarVisible} transparent animationType="slide">
           <TouchableWithoutFeedback>
 
             <View style={styles.modalMainContainer}>
@@ -726,9 +727,9 @@ const WeatherScreen = ({ route }) => {
                 <TouchableOpacity onPress={closeDate} style={{
                   position: "absolute", right: 5, top: 5,
                   borderRadius: 40, height: 25, width: 25, alignItems: "center", justifyContent: "center",
-                  backgroundColor: "#000"
+                  backgroundColor: Colors.textColor
                 }}>
-                  <Image source={require("../../assets/Images/crossIcon.png")} style={{ height: 10, width: 10, resizeMode: "contain", tintColor: "#fff" }} />
+                  <Image source={require("../../assets/Images/crossIcon.png")} style={{ height: 10, width: 10, resizeMode: "contain", tintColor:Colors.white_color}} />
                 </TouchableOpacity>
                 <Calendar
                   onDayPress={(day) => {
@@ -738,7 +739,7 @@ const WeatherScreen = ({ route }) => {
                     setCalendarVisible(false);
                   }}
                   markedDates={
-                    selectedDate ? { [selectedDate]: { selected: true, marked: true, selectedColor: Colors.app_theme_color } } : {}
+                    selectedDate ? { [selectedDate]: { selected: true, marked: true, selectedColor: Colors.app_theme_color} } : {}
                   }
                 />
               </View>
@@ -746,51 +747,46 @@ const WeatherScreen = ({ route }) => {
           </TouchableWithoutFeedback>
         </Modal>
 
-        <Modal
-          supportedOrientations={['portrait', 'landscape']}
-          visible={showDropDowns}
-          // onRequestClose={onBackdropPress}
-          animationType='slide'
-          transparent={true}
-        // style={style}
-        >
-          <View style={styles.modalMainContainer1}>
-            <View style={styles.modalSubParentContainer}>
-              <View style={styles.closeBtnContainer}>
-                <TouchableOpacity onPress={() => setShowDropDowns(false)}>
-                  <Image source={require('../../assets/Images/crossIcon.png')} style={styles.closeIcon} />
-                </TouchableOpacity>
-              </View>
-              {cropList?.length > 0 ? (
-                <FlatList
-                  data={cropList}
-                  style={styles.flatListStyle}
-                  renderItem={({ item, index }) => (
-                    <TouchableOpacity onPress={() => onPressDropdownItem(item)}>
-                      <View style={styles.flatListRenderStyles}>
-                        <Text style={{ color: "#000", fontSize: 14, lineHeight: 25 }}>{item.name}</Text>
-                        {/* <Text style={[{color:selectedItem === item.name ?'#378CE7':"#000"} ,
-                                            //  styles['text_input'],
-                                             ]} numberOfLines={3}>
-                                            {dropDownType === strings.unit_size_uim ? item.shortDisplay : item.name}
-                                        </Text> */}
-                      </View>
-                      {cropList.length - 1 !== index &&
-                        <View style={styles.lineDivider} />
-                      }
-                    </TouchableOpacity>
-                  )}
-                  keyExtractor={(item, index) => index.toString()}
-                  showsVerticalScrollIndicator={false}
-                  nestedScrollEnabled
-                />
-              ) : (
-                <View>
-                  <Text style={styles.noDataAvailable}>{translate("No_data_available")}</Text>
+         <Modal
+            supportedOrientations={['portrait', 'landscape']}
+            visible={showDropDowns}
+            // onRequestClose={onBackdropPress}
+            animationType='slide'
+            transparent={true}
+            // style={style}
+            >
+            <View style={styles.modalMainContainer1}>
+                <View style={styles.modalSubParentContainer}>
+                    <View style={styles.closeBtnContainer}>
+                        <TouchableOpacity onPress={()=>setShowDropDowns(false)}>
+                            <Image source={require('../../assets/Images/crossIcon.png')} style={styles.closeIcon} />
+                        </TouchableOpacity>
+                    </View>
+                    {cropList?.length > 0 ? (
+                        <FlatList
+                            data={cropList}
+                            style={styles.flatListStyle}
+                            renderItem={({ item,index }) => (
+                                <TouchableOpacity onPress={() => onPressDropdownItem(item)}>
+                                    <View style={styles.flatListRenderStyles}>
+                                      <Text style={{color:Colors.textColor,fontSize:14,lineHeight:25}}>{item.name}</Text>
+                                    </View>
+                                    {cropList.length-1!==index &&
+                                    <View style={styles.lineDivider}/>
+                                }
+                                </TouchableOpacity>
+                            )}
+                            keyExtractor={(item, index) => index.toString()}
+                            showsVerticalScrollIndicator={false}
+                            nestedScrollEnabled
+                        />
+                    ) : (
+                        <View>
+                            <Text style={styles.noDataAvailable}>{translate("No_data_available")}</Text>
+                        </View>
+                    )}
                 </View>
-              )}
             </View>
-          </View>
         </Modal>
         {loader && <CustomLoader visible={loader} />}
       </View>

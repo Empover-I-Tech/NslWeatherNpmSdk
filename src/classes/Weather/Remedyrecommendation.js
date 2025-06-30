@@ -36,25 +36,6 @@ const Remedyrecommendation = ({ route }) => {
         }, 50);
 
         const getRemedyUrl = ApiConfig.BASE_URL_NVM + ApiConfig.WEATHERDETAILS.getRemedies;
-        const headers = {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "appVersionCode": "7",
-          "appVersionName": "1.7",
-          "applicationName": "subeej",
-          "authType": "JWTAUTHENTICATION",
-          "companyCode": "1100",
-          "deviceId": "e34ab421bd29c503",
-          "deviceToken": "",
-          "deviceType": "android",
-          "fcmToken": "f73URncaRSakzNfbZ_pY6c:APA91bHi7BI07d_ttbVZq9GaXeQtFTYgy_-e_6njwxbfdclQYRomYPGs0CgFrp6W3CFPNGEC3_1f0QiyQgUaYkRop4Wrt0a-5QWs0yR45pYDHIIiH3RtZ-4",
-          "languageId": "1",
-          "mobileNumber": "7995436762",
-          "referralCode": "613762SAI",
-          "roleId": "2",
-          "userId": "613",
-          "userName": "Sai kiran Kathoju"
-        }
         const payload = {
           cropName: cropName,
           diseaseName: pests,
@@ -62,7 +43,7 @@ const Remedyrecommendation = ({ route }) => {
           longitude: route.params.longitude.toString(),
         };
 
-        const finalResponse = await ApiService.post(getRemedyUrl, payload, headers, false)
+        const finalResponse = await ApiService.post(getRemedyUrl, payload, false)
         if (finalResponse?.statusCode == 200) {
           setDiagnosis(finalResponse?.response[0]?.diagnosis);
           setAdvisory(finalResponse?.response[0]?.advisory);
@@ -71,6 +52,9 @@ const Remedyrecommendation = ({ route }) => {
           SimpleToast.show(!isNullOrEmptyNOTTrim(finalResponse?.message) ? finalResponse?.message : translate('Something_went_wrong'));
 
         }
+         setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       } catch (error) {
         console.error('Remedy API Error:', error);
         setTimeout(() => {
@@ -78,6 +62,9 @@ const Remedyrecommendation = ({ route }) => {
         }, 1000);
       }
     } else {
+       setTimeout(() => {
+          setLoading(false);
+        }, 1000);
     }
   };
 
@@ -113,21 +100,6 @@ const Remedyrecommendation = ({ route }) => {
                       </View>
                     )
                   })
-
-                  // <FlatList
-                  //   data={advisory}
-                  //   keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
-                  //   renderItem={({ item, index }) => (
-                  //     <View style={styles.remedyPointsContainer} key={item.id || index}>
-                  //       <Text style={styles.remedyPintsText}>{index + 1}. </Text>
-                  //       <Text style={styles.remedyPintsText}>{item?.point}</Text>
-                  //     </View>
-                  //   )}
-                  //   ListEmptyComponent={<Text>{translate('not_available')}</Text>}
-                  //   initialNumToRender={10}
-                  //   maxToRenderPerBatch={10}
-                  //   windowSize={5}
-                  // />
                 )
 
 

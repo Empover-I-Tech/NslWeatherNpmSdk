@@ -1,15 +1,15 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { responsiveFontSize, responsiveHeight } from "react-native-responsive-dimensions";
+import { Colors } from "../../colors/Colors";
 const { height, width } = Dimensions.get("window")
 
 const styles = StyleSheet.create({
     weatherSafeAreaContainer: {
         flex: 1,
-        backgroundColor: "#ED3237"
     },
     mainContainer: {
         flex: 1,
-        backgroundColor: '#f5f5f5'
+        backgroundColor:Colors.lightgrey
     },
     mainHeadersContainer: {
         flexDirection: "row",
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
         height: 60,
-        backgroundColor: "#ED3237"
     },
     mainSubHeadersContainer: {
         flexDirection: "row",
@@ -42,7 +41,6 @@ const styles = StyleSheet.create({
     headerText: {
         fontWeight: "bold",
         fontSize: 18,
-        color: "#fff"
     },
     weatherInfoCard: {
         width: "90%",
@@ -51,8 +49,8 @@ const styles = StyleSheet.create({
         padding: 20,
         marginBottom: 20,
         borderRadius: 10,
-        shadowColor: '#000',
-        backgroundColor: "white",
+        shadowColor:Colors.black_color,
+        backgroundColor:Colors.white_color,
         shadowOffset: {
             width: 0,
             height: 2
@@ -76,15 +74,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 5
     },
     tempText2: {
-        color: "#000",
+        color:Colors.black_color,
         marginHorizontal: 0,
         textAlign: "left",
         alignSelf: "flex-start"
-    },
-    rangeText: {
-        fontSize: responsiveFontSize(1.8),
-        fontWeight: '400',
-        color: '#00000099',
     },
     locationText: {
         marginLeft: 5,
@@ -117,7 +110,6 @@ const styles = StyleSheet.create({
     weatherDescText: {
         fontSize: 25,
         fontWeight: '500',
-        color: '#FF6A00',
         textTransform: 'capitalize',
         width: "65%"
     },
@@ -149,7 +141,7 @@ const styles = StyleSheet.create({
     rangeText: {
         fontSize: responsiveFontSize(1.8),
         fontWeight: '400',
-        color: '#00000099',
+        color:Colors.lighy_black,
     },
     degree2Text: {
         fontSize: 14,
@@ -158,7 +150,7 @@ const styles = StyleSheet.create({
     divider: {
         width: 1,
         height: '100%',
-        backgroundColor: '#d3d3d3'
+        backgroundColor:Colors.lightish_grey
     },
     weatherStats: {
         flexDirection: 'row',
@@ -185,41 +177,11 @@ const styles = StyleSheet.create({
         marginRight: "5%",
         marginBottom: 15,
     },
-    tabTextcontainer: {
-        backgroundColor: "#ED3237",
-        borderRadius: 5,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    tabTextcontainer1: {
-        borderWidth: 1,
-        borderColor: "#ED3237",
-        borderRadius: 5,
-        alignItems: "center",
-        justifyContent: "center",
-    },
     tabText: {
         fontWeight: "300",
         fontSize: 10,
         marginTop: 1,
         textAlign: "center"
-    },
-    tabHourlyTextContainer: {
-        backgroundColor: "#ED3237",
-        borderRadius: 5,
-        alignItems: "center",
-        justifyContent: "center",
-        minWidth: '25%',
-        minHeight: "4%"
-    },
-    tabHourlyTextContainer1: {
-        borderWidth: 1,
-        borderColor: "#ED3237",
-        borderRadius: 5,
-        alignItems: "center",
-        justifyContent: "center",
-        minWidth: '25%',
-        minHeight: "4%"
     },
     weatherInfOCard1: {
         marginBottom: 5,
@@ -227,19 +189,19 @@ const styles = StyleSheet.create({
         padding: 10
     },
     locationDetailsText: {
-        color: "#000",
+        color:Colors.black_color,
         marginHorizontal: 0,
         textAlign: "left",
         alignSelf: "flex-start"
     },
     weatherLineDivider: {
-        backgroundColor: "rgba(242, 246, 249, 1)",
+        backgroundColor:Colors.lightgrey,
         height: 1,
         width: "100%",
         alignSelf: "center",
         marginVertical: 5
     },
-    forecastTemp: { marginTop: 5, fontSize: 14, fontWeight: '600', color: '#d3d3d3' },
+    forecastTemp: { marginTop: 5, fontSize: 14, fontWeight: '600'},
     locationDetailsMainContainer: {
         flexDirection: "row",
         alignItems: "center",
@@ -247,17 +209,17 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     locationStateText: {
-        color: 'rgba(93, 93, 93, 1)',
+        color:Colors.lighy_black,
         fontWeight: "400",
         fontSize: 10
     },
     locationStateValueText: {
-        color: "#000",
+        color: Colors.black_color,
         fontWeight: "700",
         fontSize: 11
     },
     cropsLineDivider: {
-        backgroundColor: "rgba(242, 246, 249, 1)",
+        backgroundColor:Colors.lightgrey,
         height: 1,
         width: "100%",
         alignSelf: "center",
@@ -275,12 +237,12 @@ const styles = StyleSheet.create({
     },
     sowingdateText: {
         lineHeight: 30,
-        color: "#000",
+        color: Colors.black_color,
         marginBottom: 8,
         fontSize: 14
     },
     textInputContainer: {
-        backgroundColor: "#fff",
+        backgroundColor: Colors.white_color,
         borderWidth: 1,
         height: 47,
         borderRadius: 8,
@@ -296,24 +258,24 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         width: "90%",
         paddingLeft: 10,
-        color: '#000'
+        color: Colors.black_color
     },
     dropDownIcon: {
         height: 20,
         width: 20,
-        tintColor: "#000",
+        tintColor: Colors.black_color,
         resizeMode: "contain"
     },
     pestDiseasesContainer: {
         borderWidth: 1,
-        borderColor: "rgba(242, 246, 249, 1)",
+        borderColor: Colors.lightgrey,
         paddingHorizontal: 10,
         paddingVertical: 10,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10
     },
     pestDiseasesText: {
-        color: "#000",
+        color: Colors.black_color,
         fontWeight: "600",
         fontSize: 12
     },
@@ -321,11 +283,11 @@ const styles = StyleSheet.create({
         maxHeight: height * 0.45
     },
     pestForecastDiseasesListSubContainer: {
-        maxheight: 300, borderBottomWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, paddingHorizontal: 10, paddingVertical: 10, borderColor: "rgba(242, 246, 249, 1)", borderBottomRightRadius: 10, borderBottomLeftRadius: 10
+        maxheight: 300, borderBottomWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, paddingHorizontal: 10, paddingVertical: 10, borderColor:Colors.lightgrey, borderBottomRightRadius: 10, borderBottomLeftRadius: 10
     },
     peastEmptyText: {
         textAlign: "center",
-        marginTop: 20, color: "#000",
+        marginTop: 20, color: Colors.black_color,
         fontSize: 15
     },
     pestItemContainer: {
@@ -342,18 +304,18 @@ const styles = StyleSheet.create({
     peastDetailsLine: {
         width: 1,
         height: "80%",
-        backgroundColor: "rgba(242, 246, 249, 1)"
+        backgroundColor: Colors.lightgrey
     },
     pestTextDetailsContainer: {
         width: '50%'
     },
     pestText: {
-        color: "#000",
+        color: Colors.black_color,
         fontWeight: "600",
         fontSize: 14
     },
     pestDescription: {
-        color: "#000",
+        color: Colors.black_color,
         fontWeight: "400",
         fontSize: 12
     },
@@ -372,7 +334,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         height: responsiveHeight(10),
         width: "90%",
-        backgroundColor: "white",
+        backgroundColor: Colors.white_color,
         alignSelf: "center",
         borderRadius: 10,
         marginVertical: 5,
@@ -393,7 +355,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         marginTop: 0
     },
-    rangeText: { fontSize: responsiveFontSize(1.8), fontWeight: '400', color: '#00000099' },
     iconContainer: {
         flexDirection: "row",
         alignItems: "center",
@@ -404,12 +365,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(0,0,0,0.5)"
+        backgroundColor:Colors.transparent
     },
 
     modalSubContainer: {
         width: 320,
-        backgroundColor: "#fff",
+        backgroundColor:Colors.white_color,
         borderRadius: 10,
         padding: 20,
         alignItems: "center"
@@ -417,7 +378,7 @@ const styles = StyleSheet.create({
     modalMainContainer1: {
         width: "100%",
         height: "100%",
-        backgroundColor: "rgba(0,0,0,0.3)",
+        backgroundColor:Colors.transparent,
         justifyContent: "center",
         alignItems: "center"
     },
@@ -426,26 +387,26 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 10,
         margin: 30,
-        backgroundColor: "#fff",
+        backgroundColor:Colors.white_color,
         paddingBottom: 15
     },
-    closeBtnContainer: {
-        alignSelf: "flex-end",
-        top: 5
+    closeBtnContainer:{
+        alignSelf:"flex-end",
+        top:5
     },
-    flatListStyle: {
-        width: "100%",
-        top: 10
+        flatListStyle:{
+        width:"100%",
+        top:10
     },
     lineDivider: {
-        backgroundColor: "#D6D6D6",
+        backgroundColor:Colors.lightgrey,
         height: 1,
         width: "100%",
         alignSelf: "center",
         marginVertical: 10
     },
     noDataAvailable: {
-        color: "#000",
+        color: Colors.black_color,
         alignSelf: "center",
         marginTop: 80,
         height: 40
@@ -453,67 +414,64 @@ const styles = StyleSheet.create({
     closeIcon: {
         height: 15,
         width: 15,
-        tintColor: "#000"
+        tintColor: Colors.black_color
     },
-    remedyMainContainer: {
-        flex: 1,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        margin: 10,
-        width: "90%",
-        alignSelf: "center",
-        borderRadius: 10,
-        shadowColor: '#000',
-        backgroundColor: "white",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
+    remedyMainContainer:{
+        flex: 1, 
+        backgroundColor:Colors.white_color, 
+        borderRadius: 10, 
+        margin: 10, 
+        width: "90%", 
+        alignSelf: "center", 
+        borderRadius: 10, 
+        shadowColor:Colors.black_color, 
+        backgroundColor: Colors.white_color, 
+        shadowOffset: { width: 0, height: 2 }, 
+        shadowOpacity: 0.25, 
+        shadowRadius: 4, 
         elevation: 2
     },
-    remedySubContainer: {
-        margin: 10,
-        flexDirection: "row",
-        alignItems: "center",
+    remedySubContainer:{
+        margin: 10, 
+        flexDirection: "row", 
+        alignItems: "center", 
         justifyContent: "space-between"
     },
-    remedyNameText: {
-        color: "#000",
-        fontWeight: '900',
-        fontSize: 14,
+    remedyNameText:{
+        color:Colors.black_color, 
+        fontWeight: '900', 
+        fontSize: 14, 
         lineHeight: 30
     },
-    remedyDescription: {
-        color: "#000",
-        fontSize: 14,
+    remedyDescription:{
+        color:Colors.black_color, 
+        fontSize: 14, 
         lineHeight: 25
     },
-    divider: {
-        height: 2,
-        backgroundColor: 'rgba(242, 246, 249, 1)',
-        marginVertical: 7,
-        margin: 10
-    },
-    dignosisText: {
-        color: "#000",
-        fontSize: 14,
+    dignosisText:{
+        color:Colors.black_color, 
+        fontSize: 14, 
         marginBottom: 10
     },
-    remedyPointsContainer: {
-        flexDirection: 'row',
-        width: "95%"
+    remedyPointsContainer:{
+        flexDirection: 'row', 
+        width: "95%" 
     },
-    remedyPintsText: {
-        color: "#000",
-        fontSize: 14,
+    remedyPintsText:{
+        color:Colors.black_color, 
+        fontSize: 14, 
         lineHeight: 26
     },
-    remedyNotAvailable: {
-        color: "#000",
-        marginLeft: 10,
-        margin: 2,
-        fontWeight: '400',
-        fontSize: 13
+    remedyNotAvailable:{
+        color:Colors.black_color, 
+        marginLeft: 10, 
+        margin: 2, 
+        fontWeight: '400', 
+        fontSize: 13 
     }
+  
+
+
 })
 
 export default styles

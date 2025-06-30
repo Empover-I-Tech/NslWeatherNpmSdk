@@ -14,6 +14,7 @@ export const LANGUAGENAME = 'languageName';
 export const MOBILENUMBER = 'mobileNumber';
 export const USERNAME = 'userName';
 export const LANGUAGEID = 'languageId';
+export const SDKAUTHENTICATIONKEY="SDKAUTHENTICATIONKEY";
 export const ROLDID = 'roleId';
 export const REFERRALCODE = 'referralCode';
 export const USER_IMG = "userImg"

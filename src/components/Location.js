@@ -4,6 +4,7 @@ import {
     Platform,
     TouchableOpacity,
     Image,
+    Text,
     Alert,
     ActivityIndicator,
     StyleSheet,
@@ -16,7 +17,7 @@ import Geolocation from "@react-native-community/geolocation";
 import { MAP_MY_INDIA_URL } from "../Networks/ApiConfig";
 import CustomHeaders from "./CustomeHeaders";
 import CustomButton from "./CustomButton";
-import { useColors, Colors } from "../colors/Colors";
+import { useColors } from "../colors/Colors";
 
 MapplsGL.setMapSDKKey("hgxmpb6gldoe2jb2r3upyje5rej6v72p");
 MapplsGL.setRestAPIKey("5zf2txekry89tciw19sgmjpo7w133ioj");
@@ -24,29 +25,28 @@ MapplsGL.setAtlasClientId("qwj3TMxdzY7SIXZq8s3A4xDzY3LBjO3xAepnlJFBOjA_DQ7xzJWYt
 MapplsGL.setAtlasClientSecret("NdJUAD9O1c0LyinGBY0q0A17p-U96zMmvmehrrw4OVI91FWsWwBD2VCd3HVpTBawIi_g0BxxNireuLAJZpwie4283oO0mRYf");
 
 const Location = ({ route }) => {
-    console.log("checkingRoutes=-=-=->", route?.params?.coordinates)
+    console.log("checkingRoutes=-=-=->",route?.params?.coordinates)
+    const Colors=useColors()
     const [isMapReady, setIsMapReady] = useState(false);
     const [isUserInteracting, setIsUserInteracting] = useState(false);
-    const [locallatitudes, setLocalLatitudes] = useState(route?.params?.coordinates?.latitude ? route?.params?.coordinates?.latitude : 0);
-    const [locallongitudes, setLocalLongitudes] = useState(route?.params?.coordinates?.longitude ? route?.params?.coordinates?.longitude : 0);
-    const [address, setAddress] = useState(route?.params?.coordinates?.address ? route?.params?.coordinates?.address : "");
-    const [screen, setScreen] = useState(route?.params?.coordinates?.screenName ? route?.params?.coordinates?.screenName : "");
+    const [locallatitudes, setLocalLatitudes] = useState(route?.params?.coordinates?.latitude?route?.params?.coordinates?.latitude:0);
+    const [locallongitudes, setLocalLongitudes] = useState(route?.params?.coordinates?.longitude?route?.params?.coordinates?.longitude:0);
+    const [address, setAddress] = useState(route?.params?.coordinates?.address?route?.params?.coordinates?.address:"");
+    const [screen, setScreen] = useState(route?.params?.coordinates?.screenName?route?.params?.coordinates?.screenName:"");
     const [isMap, setIsMap] = useState("");
     const [pinDance, setPinDance] = useState(false);
     const [loading, setLoading] = useState(false);
     const cameraRef = useRef(null);
     const { width, height } = Dimensions.get('window');
     const navigation = useNavigation();
-    const [newLat, setNewLat] = useState(null)
-    const [newLong, setNewLong] = useState(null)
-    const [zoomingPick, setZoomingPick] = useState(route?.params?.coordinates?.zoom ? route?.params?.coordinates?.zoom : 0)
-    // const Colors = useColors()
+    const [newLat,setNewLat]=useState(null)
+    const [newLong,setNewLong]=useState(null)
+    const [zoomingPick,setZoomingPick]=useState(route?.params?.coordinates?.zoom?route?.params?.coordinates?.zoom:0)
 
-    const centerMap = (longi, lati, zoom) => {
-        console.log("called3=-=-=-3", longi, lati)
+    const centerMap = (longi, lati,zoom) => {
         cameraRef.current?.setCamera({
             centerCoordinate: [longi, lati],
-            zoomLevel: zoom,
+            zoomLevel:zoom,
             animationDuration: 1000,
         });
     };
@@ -73,7 +73,7 @@ const Location = ({ route }) => {
             return () => {
                 console.log('Screen is no longer focused!');
             };
-            // }, [isConnected, route?.params])
+        // }, [isConnected, route?.params])
         }, [])
 
     );
@@ -85,8 +85,7 @@ const Location = ({ route }) => {
 
     const onMapLoad = () => {
         setIsMapReady(true);
-        centerMap(route?.params?.coordinates?.longitude, route?.params?.coordinates?.latitude, route?.params?.coordinates?.zoom);
-        console.log("finalCheckingCoordinates=-=-=>", route?.params?.coordinates?.longitude, route?.params?.coordinates?.latitude)
+        centerMap(route?.params?.coordinates?.longitude,route?.params?.coordinates?.latitude,route?.params?.coordinates?.zoom);
         // centerMap(route.params.latitude, route.params.longitude);
         setLoading(false);
         // console.log(latitude, longitude, "from on map load");
@@ -109,33 +108,32 @@ const Location = ({ route }) => {
 
 
 
-    const fetchCurrentLocation = () => {
-        Geolocation.getCurrentPosition(
+    const fetchCurrentLocation=()=>{
+          Geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        setNewLat(latitude);
+        setNewLong(longitude);
+      },
+      error => {
+        console.error('Error fetching location:', error);
+        if (error.code === 3 || error.code === 2) {
+          Geolocation.getCurrentPosition(
             position => {
-                const { latitude, longitude } = position.coords;
-                console.log("currentLatitudeLongitude-0=-=->", typeof latitude, longitude)
-                setNewLat(latitude);
-                setNewLong(longitude);
+              const { latitude, longitude } = position.coords;
+                  setNewLat(latitude);
+                  setNewLong(longitude);
             },
-            error => {
-                console.error('Error fetching location:', error);
-                if (error.code === 3 || error.code === 2) {
-                    Geolocation.getCurrentPosition(
-                        position => {
-                            const { latitude, longitude } = position.coords;
-                            setNewLat(latitude);
-                            setNewLong(longitude);
-                        },
-                        fallbackError => {
-                            console.error('Fallback location error:', fallbackError);
-                        },
-                        { enableHighAccuracy: true, timeout: 30000, maximumAge: 10000 }
-                    );
-                } else {
-                }
+            fallbackError => {
+              console.error('Fallback location error:', fallbackError);
             },
-            { enableHighAccuracy: false, timeout: 15000, maximumAge: 5000 }
-        );
+            { enableHighAccuracy: true, timeout: 30000, maximumAge: 10000 }
+          );
+        } else {
+        }
+      },
+      { enableHighAccuracy: false, timeout: 15000, maximumAge: 5000 }
+    );
     }
 
     const onMapError = (error) => {
@@ -143,6 +141,7 @@ const Location = ({ route }) => {
     };
 
     const onMapRegionChange = (event) => {
+        console.log("calling1")
         if (!isUserInteracting) return;
         const [longitude, latitude] = event?.geometry?.coordinates || [];
         setLocalLatitudes(latitude);
@@ -150,12 +149,13 @@ const Location = ({ route }) => {
     };
 
     const onRegionWillChange = () => {
+        console.log("calling2")
         setIsUserInteracting(true);
     };
 
     const onRegionDidChange = (region) => {
-        console.log("checkingRegionsaoi=-=-=->", region.properties.zoomLevel)
-        setZoomingPick(region.properties.zoomLevel)
+        console.log("calling3")
+        setZoomingPick(region.properties.zoomLevel)        
         setIsUserInteracting(false);
         console.log(locallatitudes, locallongitudes, "marker updated on map");
     };
@@ -163,8 +163,8 @@ const Location = ({ route }) => {
     const handleBackToCurrentLocation = () => {
         setPinDance(false);
         cameraRef.current?.setCamera({
-            centerCoordinate: [newLong, newLat],
-            zoomLevel: 40,
+            centerCoordinate: [newLong,newLat],
+            zoomLevel:40,
             animationDuration: 1000,
         });
     };
@@ -196,14 +196,11 @@ const Location = ({ route }) => {
                 console.log('✅ Valid place selected:', place?.formatted_address);
                 setAddress(place?.formatted_address);
                 if (locallatitudes && locallongitudes && place?.formatted_address) {
-                    navigation.navigate(screen, {
-                        backScreen: {
-                            latitude: locallatitudes,
-                            longitude: locallongitudes,
-                            address: place.formatted_address,
-                            zoom: zoomingPick
-                        }
-                    });
+                    navigation.navigate(screen, {backScreen:{latitude:locallatitudes,
+                        longitude:locallongitudes,
+                        address: place.formatted_address,
+                        zoom:zoomingPick
+                    }});
                 }
             } else {
                 Alert.alert(translate('Invalid_Selection'), translate('valid_location'));
@@ -212,7 +209,7 @@ const Location = ({ route }) => {
             Alert.alert("Error", "Failed to get address from location.");
         }
     };
-
+   
     const handleBackScreen = () => {
         navigation.goBack()
     }
@@ -258,14 +255,14 @@ const Location = ({ route }) => {
                         right: 20,
                         alignItems: "center",
                         justifyContent: "center",
-                        backgroundColor: Colors.app_theme_color,
+                        backgroundColor:Colors.app_theme_color,
                         height: 60,
                         width: 60,
                         borderRadius: 60,
                     }}
                 >
                     <Image
-                        tintColor={"#fff"}
+                        tintColor={Colors.secondaryColor}
                         source={require('../assets/Images/gps.png')}
                         style={{ height: 30, width: 30, resizeMode: "contain" }}
                     />
@@ -296,7 +293,7 @@ const Location = ({ route }) => {
             )}
 
             {isMapReady && !loading &&
-                <View style={[{ position: "absolute", bottom: 20, zIndex: 100, width: "90%", alignSelf: "center" }]}>
+                <View style={[{ position: "absolute", bottom: 20, zIndex: 100, width: "90%",alignSelf:"center" }]}>
                     <CustomButton
                         btnText={translate("save")}
                         btnWidth={"100%"}

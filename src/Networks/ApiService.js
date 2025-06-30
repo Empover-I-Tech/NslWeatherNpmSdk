@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { STATUS_CODE_103, STATUS_CODE_601, STATUS_CODE_SUCCESS_200 } from './ApiConfig';
-import { APPLICATIONNAME, COMPANYCODE, FCMTOKEN, getFromAsyncStorage, isNullOrEmptyNOTTrim, LANGUAGEID, MOBILENUMBER, REFERRALCODE, ROLEID, USER_ID, USERNAME, VERSIONCODE, VERSIONNAME } from '../Utility/Utils';
+import { APPLICATIONNAME, COMPANYCODE, FCMTOKEN, getFromAsyncStorage, isNullOrEmptyNOTTrim, LANGUAGEID, MOBILENUMBER, REFERRALCODE, ROLEID, USER_ID, USERNAME, VERSIONCODE, VERSIONNAME, SDKAUTHENTICATIONKEY } from '../Utility/Utils';
 
 // Replace these with actual utility functions or constants
 async function getDeviceId() {
@@ -38,6 +38,7 @@ class ApiService {
     const versionName = await getFromAsyncStorage(VERSIONNAME);
     const applicationName = await getFromAsyncStorage(APPLICATIONNAME);
     const selectedLanguageId = await getFromAsyncStorage(LANGUAGEID);
+    const sdkAuthenticationKey=await getFromAsyncStorage(SDKAUTHENTICATIONKEY);
     const loggedInMobileNumber = await getFromAsyncStorage(MOBILENUMBER)
     const loggedInUserId = await getFromAsyncStorage(USER_ID)
     const companyCode = await getFromAsyncStorage(COMPANYCODE)
@@ -59,6 +60,7 @@ class ApiService {
       fcmToken: fcmTokenApp,
       deviceType: Platform.OS,
       languageId: Number(selectedLanguageId) || 1,
+      sdkAuthenticationKey:sdkAuthenticationKey||"",
       mobileNumber: loggedInMobileNumber,
       userId: loggedInUserId,
       referralCode: referralCode,
