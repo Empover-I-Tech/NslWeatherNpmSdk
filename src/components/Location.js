@@ -33,7 +33,7 @@ const Location = ({ route }) => {
     const [locallongitudes, setLocalLongitudes] = useState(route?.params?.coordinates?.longitude?route?.params?.coordinates?.longitude:0);
     const [address, setAddress] = useState(route?.params?.coordinates?.address?route?.params?.coordinates?.address:"");
     const [screen, setScreen] = useState(route?.params?.coordinates?.screenName?route?.params?.coordinates?.screenName:"");
-    const [isMap, setIsMap] = useState("");
+    const [isMap, setIsMap] = useState(!route?.params?.coordinates?.address);
     const [pinDance, setPinDance] = useState(false);
     const [loading, setLoading] = useState(false);
     const cameraRef = useRef(null);
@@ -60,6 +60,13 @@ const Location = ({ route }) => {
     useFocusEffect(
         React.useCallback(() => {
             console.log('screen focused', route?.params);
+            if(route?.params?.coordinates?.address){
+                setIsMap(false);
+
+            }else{
+                setIsMap(true);
+
+            }
             fetchCurrentLocation()
             // if (route?.params?.address && route?.params?.coordinates?.latitude && route?.params?.coordinates?.longitude) {
             //     setIsMap(false);
@@ -141,8 +148,9 @@ const Location = ({ route }) => {
     };
 
     const onMapRegionChange = (event) => {
-        console.log("calling1")
-        if (!isUserInteracting) return;
+        if(event?.properties?.isUserInteraction===false){
+            return
+        };
         const [longitude, latitude] = event?.geometry?.coordinates || [];
         setLocalLatitudes(latitude);
         setLocalLongitudes(longitude);
@@ -184,10 +192,10 @@ const Location = ({ route }) => {
 
 
     const handlePickLocation = async () => {
-        // if (!isMap) {
-        //     setIsMap(true);
-        //     return;
-        // }
+        if (!isMap) {
+            setIsMap(true);
+            return;
+        }
 
         const data = await reverseGeocode(locallatitudes, locallongitudes);
         if (data?.results?.length > 0) {
@@ -228,23 +236,30 @@ const Location = ({ route }) => {
                         onRegionIsChanging={onMapRegionChange}
                         onRegionWillChange={onRegionWillChange}
                         onRegionDidChange={onRegionDidChange}
-                        zoomEnabled={true}
-                        scrollEnabled={true}
-                        rotateEnabled={true}
+                        zoomEnabled={isMap}
+                        scrollEnabled={isMap}
+                        rotateEnabled={isMap}
                     >
                         <MapplsGL.Camera
                             ref={cameraRef}
                             zoomLevel={40}
                             animationDuration={1000}
                         />
-                        <MapplsGL.UserLocation visible={true} showsUserHeadingIndicator={true} />
+                            {!route?.params?.coordinates && (
+                                <MapplsGL.UserLocation
+                                    visible={true}
+                                    showsUserHeadingIndicator={true}
+                                />
+                            )}
+
+                        {/* <MapplsGL.UserLocation visible={true} showsUserHeadingIndicator={true} /> */}
                     </MapplsGL.MapView>
                 )}
             </View>
 
             {isMapReady && !loading && newLat !== null && newLong !== null && (
                 <TouchableOpacity
-                    // disabled={!isMap}
+                    disabled={!isMap}
                     onPress={() => {
                         handleBackToCurrentLocation();
                         setPinDance(true);
@@ -295,7 +310,7 @@ const Location = ({ route }) => {
             {isMapReady && !loading &&
                 <View style={[{ position: "absolute", bottom: 20, zIndex: 100, width: "90%",alignSelf:"center" }]}>
                     <CustomButton
-                        btnText={translate("save")}
+                        btnText={isMap ? translate('save') : translate('edit')}
                         btnWidth={"100%"}
                         btnHeight={45}
                         btnRadius={6}
