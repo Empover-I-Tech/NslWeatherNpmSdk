@@ -1,4 +1,4 @@
-import { Platform, Text, StatusBar, View, FlatList, StyleSheet, Image, TouchableOpacity, Alert, ScrollView, Dimensions } from 'react-native';
+import { Text, View, ScrollView, Dimensions } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -13,7 +13,6 @@ import { isNullOrEmptyNOTTrim } from '../../Utility/Utils';
 
 const { height } = Dimensions.get("window")
 const Remedyrecommendation = ({ route }) => {
-  console.log("routesChecking=-=-=>", route.params)
   const [diseaseData, setDiseaseData] = useState(route?.params?.data || '')
   const [pests, setPests] = useState(route?.params?.data?.pests || '')
   const [description, setDescription] = useState(route?.params?.data?.description || '')
@@ -22,7 +21,7 @@ const Remedyrecommendation = ({ route }) => {
   const [diagnosis, setDiagnosis] = useState('');
   const [advisory, setAdvisory] = useState([]);
   const { isConnected } = useSelector(state => state.network);
-  const [loading, setLoading] = useState(false)
+
 
   useEffect(() => {
     getRedemy();
@@ -31,10 +30,6 @@ const Remedyrecommendation = ({ route }) => {
   const getRedemy = async () => {
     if (isConnected) {
       try {
-        setTimeout(() => {
-          setLoading(true);
-        }, 50);
-
         const getRemedyUrl = ApiConfig.BASE_URL_NVM + ApiConfig.WEATHERDETAILS.getRemedies;
         const payload = {
           cropName: cropName,
@@ -50,21 +45,11 @@ const Remedyrecommendation = ({ route }) => {
 
         } else {
           SimpleToast.show(!isNullOrEmptyNOTTrim(finalResponse?.message) ? finalResponse?.message : translate('Something_went_wrong'));
-
         }
-         setTimeout(() => {
-          setLoading(false);
-        }, 1000);
       } catch (error) {
         console.error('Remedy API Error:', error);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
       }
     } else {
-       setTimeout(() => {
-          setLoading(false);
-        }, 1000);
     }
   };
 
@@ -86,26 +71,27 @@ const Remedyrecommendation = ({ route }) => {
               percentage={diseaseData?.percentage} radius={25} strokeWidth={6} percentageText={diseaseData?.percentage} level={diseaseData?.level}
             />}
           </View>
-          <View style={styles.divider} />
+          <View style={styles.dividerTwo} />
           <View style={{ margin: 10 }}>
             <Text style={styles.dignosisText}>{diagnosis}</Text>
             <View style={{ maxHeight: height * 0.55 }}>
-              {
-                advisory?.length > 0 ? (
-                  advisory?.map((item, index) => {
-                    return (
-                      <View style={styles.remedyPointsContainer}>
-                        <Text style={styles.remedyPintsText}>{index + 1} </Text>
-                        <Text style={styles.remedyPintsText}>{item?.point}</Text>
-                      </View>
-                    )
-                  })
-                )
+              <ScrollView nestedScrollEnabled={true}>
+                {
+                  advisory?.length > 0 ? (
+                    advisory?.map((item, index) => {
+                      return (
+                        <View style={styles.remedyPointsContainer}>
+                          <Text style={styles.remedyPintsText}>{index + 1} </Text>
+                          <Text style={styles.remedyPintsText}>{item?.point}</Text>
+                        </View>
+                      )
+                    })
+                  )
+                    : (
+                      <Text style={styles.remedyNotAvailable}>{translate('not_available')}</Text>
+                    )}
+              </ScrollView>
 
-
-                  : (
-                    <Text style={styles.remedyNotAvailable}>{translate('not_available')}</Text>
-                  )}
             </View>
 
           </View>

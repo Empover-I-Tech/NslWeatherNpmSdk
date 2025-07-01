@@ -138,14 +138,6 @@ export const deleteFromAsyncStorage = async (key) => {
     }
 };
 
-export const getGreetingMessage = () => {
-    const hour = new Date().getHours();
-
-    if (hour < 12) return translate("Good_morning");
-    if (hour < 18) return translate("Good_afternoon");
-    return translate("Good_evening");
-};
-
 export const normalizeText = (text) => {
     return text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : "";
 };

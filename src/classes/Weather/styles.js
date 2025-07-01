@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         flex: 1,
-        backgroundColor:Colors.lightgrey
+        backgroundColor: Colors.lightgrey
     },
     mainHeadersContainer: {
         flexDirection: "row",
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
         padding: 20,
         marginBottom: 20,
         borderRadius: 10,
-        shadowColor:Colors.black_color,
-        backgroundColor:Colors.white_color,
+        shadowColor: Colors.black_color,
+        backgroundColor: Colors.white_color,
         shadowOffset: {
             width: 0,
             height: 2
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5
     },
     tempText2: {
-        color:Colors.black_color,
+        color: Colors.black_color,
         marginHorizontal: 0,
         textAlign: "left",
         alignSelf: "flex-start"
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     rangeText: {
         fontSize: responsiveFontSize(1.8),
         fontWeight: '400',
-        color:Colors.lighy_black,
+        color: Colors.lighy_black,
     },
     degree2Text: {
         fontSize: 14,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     divider: {
         width: 1,
         height: '100%',
-        backgroundColor:Colors.lightish_grey
+        backgroundColor: Colors.lightish_grey
     },
     weatherStats: {
         flexDirection: 'row',
@@ -189,19 +189,19 @@ const styles = StyleSheet.create({
         padding: 10
     },
     locationDetailsText: {
-        color:Colors.black_color,
+        color: Colors.black_color,
         marginHorizontal: 0,
         textAlign: "left",
         alignSelf: "flex-start"
     },
     weatherLineDivider: {
-        backgroundColor:Colors.lightgrey,
+        backgroundColor: Colors.lightgrey,
         height: 1,
         width: "100%",
         alignSelf: "center",
         marginVertical: 5
     },
-    forecastTemp: { marginTop: 5, fontSize: 14, fontWeight: '600'},
+    forecastTemp: { marginTop: 5, fontSize: 14, fontWeight: '600' },
     locationDetailsMainContainer: {
         flexDirection: "row",
         alignItems: "center",
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     locationStateText: {
-        color:Colors.lighy_black,
+        color: Colors.lighy_black,
         fontWeight: "400",
         fontSize: 10
     },
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
         fontSize: 11
     },
     cropsLineDivider: {
-        backgroundColor:Colors.lightgrey,
+        backgroundColor: Colors.lightgrey,
         height: 1,
         width: "100%",
         alignSelf: "center",
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
         maxHeight: height * 0.45
     },
     pestForecastDiseasesListSubContainer: {
-        maxheight: 300, borderBottomWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, paddingHorizontal: 10, paddingVertical: 10, borderColor:Colors.lightgrey, borderBottomRightRadius: 10, borderBottomLeftRadius: 10
+        maxheight: 300, borderBottomWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, paddingHorizontal: 10, paddingVertical: 10, borderColor: Colors.lightgrey, borderBottomRightRadius: 10, borderBottomLeftRadius: 10
     },
     peastEmptyText: {
         textAlign: "center",
@@ -365,12 +365,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor:Colors.transparent
+        backgroundColor: Colors.transparent
     },
 
     modalSubContainer: {
         width: 320,
-        backgroundColor:Colors.white_color,
+        backgroundColor: Colors.white_color,
         borderRadius: 10,
         padding: 20,
         alignItems: "center"
@@ -378,7 +378,7 @@ const styles = StyleSheet.create({
     modalMainContainer1: {
         width: "100%",
         height: "100%",
-        backgroundColor:Colors.transparent,
+        backgroundColor: Colors.transparent,
         justifyContent: "center",
         alignItems: "center"
     },
@@ -387,19 +387,19 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 10,
         margin: 30,
-        backgroundColor:Colors.white_color,
+        backgroundColor: Colors.white_color,
         paddingBottom: 15
     },
-    closeBtnContainer:{
-        alignSelf:"flex-end",
-        top:5
+    closeBtnContainer: {
+        alignSelf: "flex-end",
+        top: 5
     },
-        flatListStyle:{
-        width:"100%",
-        top:10
+    flatListStyle: {
+        width: "100%",
+        top: 10
     },
     lineDivider: {
-        backgroundColor:Colors.lightgrey,
+        backgroundColor: Colors.lightgrey,
         height: 1,
         width: "100%",
         alignSelf: "center",
@@ -416,60 +416,66 @@ const styles = StyleSheet.create({
         width: 15,
         tintColor: Colors.black_color
     },
-    remedyMainContainer:{
-        flex: 1, 
-        backgroundColor:Colors.white_color, 
-        borderRadius: 10, 
-        margin: 10, 
-        width: "90%", 
-        alignSelf: "center", 
-        borderRadius: 10, 
-        shadowColor:Colors.black_color, 
-        backgroundColor: Colors.white_color, 
-        shadowOffset: { width: 0, height: 2 }, 
-        shadowOpacity: 0.25, 
-        shadowRadius: 4, 
+    remedyMainContainer: {
+        flex: 1,
+        backgroundColor: Colors.white_color,
+        borderRadius: 10,
+        margin: 10,
+        width: "90%",
+        alignSelf: "center",
+        borderRadius: 10,
+        shadowColor: Colors.black_color,
+        backgroundColor: Colors.white_color,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
         elevation: 2
     },
-    remedySubContainer:{
-        margin: 10, 
-        flexDirection: "row", 
-        alignItems: "center", 
+    remedySubContainer: {
+        margin: 10,
+        flexDirection: "row",
+        alignItems: "center",
         justifyContent: "space-between"
     },
-    remedyNameText:{
-        color:Colors.black_color, 
-        fontWeight: '900', 
-        fontSize: 14, 
+    remedyNameText: {
+        color: Colors.black_color,
+        fontWeight: '900',
+        fontSize: 14,
         lineHeight: 30
     },
-    remedyDescription:{
-        color:Colors.black_color, 
-        fontSize: 14, 
+    remedyDescription: {
+        color: Colors.black_color,
+        fontSize: 14,
         lineHeight: 25
     },
-    dignosisText:{
-        color:Colors.black_color, 
-        fontSize: 14, 
+    dignosisText: {
+        color: Colors.black_color,
+        fontSize: 14,
         marginBottom: 10
     },
-    remedyPointsContainer:{
-        flexDirection: 'row', 
-        width: "95%" 
+    remedyPointsContainer: {
+        flexDirection: 'row',
+        width: "95%"
     },
-    remedyPintsText:{
-        color:Colors.black_color, 
-        fontSize: 14, 
+    remedyPintsText: {
+        color: Colors.black_color,
+        fontSize: 14,
         lineHeight: 26
     },
-    remedyNotAvailable:{
-        color:Colors.black_color, 
-        marginLeft: 10, 
-        margin: 2, 
-        fontWeight: '400', 
-        fontSize: 13 
+    remedyNotAvailable: {
+        color: Colors.black_color,
+        marginLeft: 10,
+        margin: 2,
+        fontWeight: '400',
+        fontSize: 13
+    },
+    dividerTwo: {
+        height: 2,
+        backgroundColor: 'rgba(242, 246, 249, 1)',
+        marginVertical: 7,
+        margin: 10
     }
-  
+
 
 
 })
