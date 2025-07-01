@@ -355,7 +355,7 @@ const WeatherScreen = ({ route }) => {
                     {todayForecast[0]?.min_temp ?
                       <View style={styles.todaysWeatherContainer2}>
                         <Text style={[styles.rangeText, { color: Colors.lightish_grey }]}>
-                          {`${translate('Low')} ${Math.round(todayForecast[0]?.min_temp)}`}
+                          {`${translate('low')} ${Math.round(todayForecast[0]?.min_temp)}`}
                         </Text>
                         <Text style={[styles.degree2Text, { color: Colors.lightish_grey }]}>{"°"}</Text>
                       </View> :
@@ -633,7 +633,7 @@ const WeatherScreen = ({ route }) => {
                           {selectedWeather?.data[0]?.min_temp ?
                             <View style={{ flexDirection: "row", alignItems: 'center', marginLeft: 5 }}>
                               <Text style={[styles.rangeText, { color: Colors.lightish_grey }]}>
-                                {`${translate('Low')} ${Math.round(selectedWeather?.data[0]?.min_temp)}`}
+                                {`${translate('low')} ${Math.round(selectedWeather?.data[0]?.min_temp)}`}
                               </Text>
                               <Text style={[styles.degree2Text, { color: Colors.lightish_grey }]}>{"°"}</Text>
                             </View> :
