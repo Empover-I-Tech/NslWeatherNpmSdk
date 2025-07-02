@@ -29,12 +29,13 @@ export const MAP_MY_INDIA_KEY = "5zf2txekry89tciw19sgmjpo7w133ioj";
 export const MAP_MY_INDIA_URL = `https://apis.mapmyindia.com/advancedmaps/v1/${MAP_MY_INDIA_KEY}/rev_geocode`
 
 const DEFAULT_PROD_URL = 'https://nvmretailpro.com:8443/rest/nsl/';
-const DEFAULT_DEV_URL = 'http://3.110.159.82:8080/vyapar_mitra/rest/nsl/';
+const DEFAULT_DEV_URL = 'http://3.110.159.82:8080/beejkisan/rest/';
+
 
 let BASE_URL_NVM = DEFAULT_DEV_URL;
 export const CONFIG_KEYS = {
     WEATHERDETAILS: {
-        nslgetWeatherDetailsV1: "getWeatherDetailsV1",
+        nslgetWeatherDetailsV1: "getWeatherDetails_v2",
         getPestForecastCrops: "getPestForecastCrops",
         getPestInformation: "getPestInformation",
         getRemedies: "processCropDiseaseRemedy",
