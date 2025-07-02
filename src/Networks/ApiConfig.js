@@ -29,7 +29,7 @@ export const MAP_MY_INDIA_KEY = "5zf2txekry89tciw19sgmjpo7w133ioj";
 export const MAP_MY_INDIA_URL = `https://apis.mapmyindia.com/advancedmaps/v1/${MAP_MY_INDIA_KEY}/rev_geocode`
 
 const DEFAULT_PROD_URL = 'https://nvmretailpro.com:8443/rest/nsl/';
-const DEFAULT_DEV_URL = 'http://3.110.159.82:8080/beejkisan/rest/';
+const DEFAULT_DEV_URL = 'http://3.110.159.82:8080/beejkisan/rest/nsl/';
 
 
 let BASE_URL_NVM = DEFAULT_DEV_URL;
