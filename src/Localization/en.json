@@ -26,5 +26,6 @@
   "Invalid_Selection": "Invalid Selection",
   "valid_location": "Please select a valid land location.",
   "Map": "Map",
-  "save": "Save"
+  "save": "Save",
+  "edit": "Edit"
 }
