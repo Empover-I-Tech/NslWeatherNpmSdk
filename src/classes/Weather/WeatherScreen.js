@@ -602,7 +602,7 @@ const WeatherScreen = ({ route }) => {
 
 
                       <View style={styles.weatherDescription}>
-                        <Text style={[styles.weatherDescText, { color: Colors.yellow_rgba, fontFamily: "Poppins-SemiBold", fontWeight: "400", minWidth: "80%", fontSize: 15 }]}>
+                        <Text style={[styles.weatherDescText, { color: Colors.yellow_rgba, fontFamily: "", fontWeight: "400", minWidth: "80%", fontSize: 15 }]}>
                           {selectedWeather?.data[0]?.weather_description || "--"}
                         </Text>
 
@@ -692,7 +692,7 @@ const WeatherScreen = ({ route }) => {
                           <Image source={{ uri: subItem?.image }} style={styles.forecastIcon} />
                         }
 
-                        <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily: "Poppins-Regular", fontWeight: "400" }]}>
+                        <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily: "", fontWeight: "400" }]}>
                           {subItem.time}
                         </Text>
                       </View>
