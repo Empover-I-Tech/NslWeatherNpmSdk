@@ -10,7 +10,7 @@ import CustomLoader from '../../components/CustomLoader';
 import CustomCircularProgress from '../../components/CustomCircularProgress';
 import moment from 'moment';
 import { Calendar } from 'react-native-calendars';
-import ApiConfig, { MAP_MY_INDIA_URL, STATUS_CODE_SUCCESS_200 } from '../../Networks/ApiConfig';
+import { CONFIG_KEYS, configs_nvm, MAP_MY_INDIA_URL, STATUS_CODE_SUCCESS_200 } from '../../Networks/ApiConfig';
 import ApiService from '../../Networks/ApiService';
 import { getFromAsyncStorage, isNullOrEmptyNOTTrim, MOBILENUMBER, USER_ID } from '../../Utility/Utils';
 import { useColors } from '../../colors/Colors';
@@ -121,7 +121,7 @@ const WeatherScreen = ({ route }) => {
   }
 
   const getWeatherData = async (newLat, newLong) => {
-    const url = ApiConfig.BASE_URL_NVM + ApiConfig.WEATHERDETAILS.nslgetWeatherDetailsV1
+    const url = configs_nvm.BASE_URL_NVM + CONFIG_KEYS.WEATHERDETAILS.nslgetWeatherDetailsV1
     if (isConnected) {
       setLoader(true)
       const body = {
@@ -170,7 +170,7 @@ const WeatherScreen = ({ route }) => {
 
   const getDiseasesFromMap = async (date) => {
     setLoader(true)
-    const pestUrlInfo = ApiConfig.BASE_URL_NVM + ApiConfig.WEATHERDETAILS.getPestInformation
+    const pestUrlInfo = configs_nvm.BASE_URL_NVM + CONFIG_KEYS.WEATHERDETAILS.getPestInformation
     const payload = {
       "latitude": latitude,
       "longitude": longitude,
@@ -219,7 +219,7 @@ const WeatherScreen = ({ route }) => {
     if (isConnected) {
       try {
         setLoader(false)
-        var url = ApiConfig.BASE_URL_NVM + ApiConfig.WEATHERDETAILS.getPestForecastCrops
+        var url = configs_nvm.BASE_URL_NVM + CONFIG_KEYS.WEATHERDETAILS.getPestForecastCrops
         const payload = { "latitude": latitude, "longitude": longitude, "state": state }
         const finalResponse = await ApiService.post(url, payload, false)
         console.log("masterResp", JSON.stringify(finalResponse))
@@ -602,7 +602,7 @@ const WeatherScreen = ({ route }) => {
 
 
                       <View style={styles.weatherDescription}>
-                        <Text style={[styles.weatherDescText, { color: Colors.yellow_rgba, fontFamily: "Poppins-SemiBold", fontWeight: "400", minWidth: "80%", fontSize: 15 }]}>
+                        <Text style={[styles.weatherDescText, { color: Colors.yellow_rgba, fontFamily: "", fontWeight: "400", minWidth: "80%", fontSize: 15 }]}>
                           {selectedWeather?.data[0]?.weather_description || "--"}
                         </Text>
 
@@ -692,7 +692,7 @@ const WeatherScreen = ({ route }) => {
                           <Image source={{ uri: subItem?.image }} style={styles.forecastIcon} />
                         }
 
-                        <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily: "Poppins-Regular", fontWeight: "400" }]}>
+                        <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily: "", fontWeight: "400" }]}>
                           {subItem.time}
                         </Text>
                       </View>

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import SimpleToast from 'react-native-simple-toast';
 import { translate } from '../../Localization/Localisation';
 import CustomCircularProgress from '../../components/CustomCircularProgress';
-import ApiConfig from '../../Networks/ApiConfig';
+import { CONFIG_KEYS, configs_nvm } from '../../Networks/ApiConfig';
 import ApiService from '../../Networks/ApiService';
 import CustomHeaders from '../../components/CustomeHeaders';
 import styles from './styles';
@@ -30,7 +30,7 @@ const Remedyrecommendation = ({ route }) => {
   const getRedemy = async () => {
     if (isConnected) {
       try {
-        const getRemedyUrl = ApiConfig.BASE_URL_NVM + ApiConfig.WEATHERDETAILS.getRemedies;
+        const getRemedyUrl = configs_nvm.BASE_URL_NVM + CONFIG_KEYS.WEATHERDETAILS.getRemedies;
         const payload = {
           cropName: cropName,
           diseaseName: pests,

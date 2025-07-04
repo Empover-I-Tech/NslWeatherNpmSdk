@@ -1,3 +1,5 @@
+import { APPENVPROD, getFromAsyncStorage } from "../Utility/Utils";
+
 export const FIREBASE_LOG = true;
 export const APP_ENV_PROD = false;
 
@@ -25,13 +27,36 @@ export var STATUS_CODE_601 = 601;
 
 export const MAP_MY_INDIA_KEY = "5zf2txekry89tciw19sgmjpo7w133ioj";
 export const MAP_MY_INDIA_URL = `https://apis.mapmyindia.com/advancedmaps/v1/${MAP_MY_INDIA_KEY}/rev_geocode`
-export default configs = {
-    BASE_URL_NVM: APP_ENV_PROD ? 'https://nvmretailpro.com:8443/rest/nsl/' : 'http://3.110.159.82:8080/vyapar_mitra/rest/nsl/',
 
+const DEFAULT_PROD_URL = 'https://nvmretailpro.com:8443/rest/nsl/';
+const DEFAULT_DEV_URL = 'http://3.110.159.82:8080/beejkisan/rest/nsl/';
+
+
+let BASE_URL_NVM = DEFAULT_DEV_URL;
+export const CONFIG_KEYS = {
     WEATHERDETAILS: {
-        nslgetWeatherDetailsV1: "getWeatherDetailsV1",
+        nslgetWeatherDetailsV1: "getWeatherDetails_v2",
         getPestForecastCrops: "getPestForecastCrops",
         getPestInformation: "getPestInformation",
         getRemedies: "processCropDiseaseRemedy",
     }
 }
+
+export const configs_nvm = {
+    BASE_URL_NVM,
+    ...CONFIG_KEYS,
+}
+
+export const loadApiConfig = async () => {
+    try {
+        const storedValue = await getFromAsyncStorage(APPENVPROD);
+        const isProd = JSON.parse(storedValue);
+
+        BASE_URL_NVM = isProd ? DEFAULT_PROD_URL : DEFAULT_DEV_URL;
+
+        // ✅ Update the exported object (mutable reference)
+        configs_nvm.BASE_URL_NVM = BASE_URL_NVM;
+    } catch (e) {
+        console.warn('loadApiConfig: Failed to read APPENVPROD, using DEV URL. Weather');
+    }
+};
