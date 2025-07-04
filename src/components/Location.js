@@ -157,12 +157,10 @@ const Location = ({ route }) => {
     };
 
     const onRegionWillChange = () => {
-        console.log("calling2")
         setIsUserInteracting(true);
     };
 
     const onRegionDidChange = (region) => {
-        console.log("calling3")
         setZoomingPick(region.properties.zoomLevel)        
         setIsUserInteracting(false);
         console.log(locallatitudes, locallongitudes, "marker updated on map");
@@ -204,7 +202,9 @@ const Location = ({ route }) => {
                 console.log('✅ Valid place selected:', place?.formatted_address);
                 setAddress(place?.formatted_address);
                 if (locallatitudes && locallongitudes && place?.formatted_address) {
-                    navigation.navigate(screen, {backScreen:{latitude:locallatitudes,
+                    navigation.navigate(screen, {
+                        backScreen:{
+                        latitude:locallatitudes,
                         longitude:locallongitudes,
                         address: place.formatted_address,
                         zoom:zoomingPick
@@ -242,8 +242,9 @@ const Location = ({ route }) => {
                     >
                         <MapplsGL.Camera
                             ref={cameraRef}
-                            zoomLevel={40}
+                            zoomLevel={route?.params?.coordinates?.zoom?route?.params?.coordinates?.zoom:20}
                             animationDuration={1000}
+                            centerCoordinate={[route?.params?.coordinates?.longitude?route?.params?.coordinates?.longitude:0,route?.params?.coordinates?.latitude?route?.params?.coordinates?.latitude:0]}
                         />
                             {!route?.params?.coordinates && (
                                 <MapplsGL.UserLocation
