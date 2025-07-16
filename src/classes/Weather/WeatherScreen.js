@@ -1,5 +1,5 @@
-import { Platform, Text, StatusBar, View, FlatList, Image, TouchableOpacity, Dimensions, Modal, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { Platform, Text, StatusBar, View, FlatList, Image, TouchableOpacity, Dimensions, Modal, TouchableWithoutFeedback, SafeAreaView, PermissionsAndroid, Alert, Linking } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { translate } from '../../Localization/Localisation';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +14,7 @@ import { CONFIG_KEYS, configs_nvm, MAP_MY_INDIA_URL, STATUS_CODE_SUCCESS_200 } f
 import ApiService from '../../Networks/ApiService';
 import { getFromAsyncStorage, isNullOrEmptyNOTTrim, MOBILENUMBER, USER_ID } from '../../Utility/Utils';
 import { useColors } from '../../colors/Colors';
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
 
 const WeatherScreen = ({ route }) => {
@@ -43,6 +44,7 @@ const WeatherScreen = ({ route }) => {
 
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
+  const [coordinates, setCoordinates] = useState('')
   const [mapZoomingLevel, setMapZoomingLevel] = useState(0)
   console.log("checkinZoominLevel=-=-=>", mapZoomingLevel)
   console.log("selectedFilter-=-=->", selectedFilter)
@@ -250,10 +252,143 @@ const WeatherScreen = ({ route }) => {
     }
   }
 
+  const fetchLocation = useCallback(async () => {
+    const hasPermission = await requestLocationPermission();
+    if (!hasPermission) {
+              //       Alert.alert(
+              //   'Location Permission Required',
+              //   'Please allow location access in settings to use this feature.',
+              //   [
+              //     { text: 'Cancel', style: 'cancel' },
+              //     { text: 'Open Settings', onPress: () => Linking.openSettings() },
+              //   ]
+              // );
+      SimpleToast.show(translate('location_error'));
+      // await requestLocationPermission()
+      return;
+    }
+
+    Geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        // dispatch(setLocationActions({ latitude, longitude }));
+        setLatitude(latitude);
+        setLongitude(longitude);
+      },
+      error => {
+        if (error.code === 3 || error.code === 2) {
+          // Retry with higher accuracy
+          Geolocation.getCurrentPosition(
+            position => {
+              const { latitude, longitude } = position.coords;
+              setLatitude(latitude);
+              setLongitude(longitude);
+            },
+            fallbackError => {
+              console.error('Fallback location error:', fallbackError);
+            },
+            { enableHighAccuracy: true, timeout: 30000, maximumAge: 10000 }
+          );
+        }
+      },
+      { enableHighAccuracy: false, timeout: 15000, maximumAge: 5000 }
+    );
+  }, []);
+
   const callLocationNavigation = async () => {
-    navigation.navigate('Location', { coordinates: { latitude: latitude, longitude: longitude, address: cityDet, screenName: "WeatherScreen", zoom: mapZoomingLevel } })
+    if (isConnected) {
+      const hasPermission = await requestLocationPermission();
+      if (hasPermission) {
+        if (Platform.OS == "android") {
+          const isGpsEnabled = await checkIfGpsEnabled();
+          if (isGpsEnabled) {
+            // LocationNavigation()
+            // navigation.navigate('Location', { screeName: "WeatherScreen", address: cityDet, coordinates: { latitude, longitude } })
+            navigation.navigate('Location', { coordinates: { latitude: latitude, longitude: longitude, address: cityDet, screenName: "WeatherScreen", zoom: mapZoomingLevel } })
+
+          }
+          else {
+            console.log('ehehehehe F2')
+            fetchLocation()
+            // navigation.navigate('Location', { screeName: "WeatherScreen", address: cityDet, coordinates: { latitude, longitude } })
+
+          }
+        }
+        else {
+          navigation.navigate('Location', { coordinates: { latitude: latitude, longitude: longitude, address: cityDet, screenName: "WeatherScreen", zoom: mapZoomingLevel } })
+        }
+      }else{
+        // console.log('ehehehehe F1')
+        fetchLocation()
+      }
+    } else {
+      SimpleToast.show(translate('no_internet_conneccted'));
+    }
   }
   console.log("checkingZoomongLevel=-=->", mapZoomingLevel)
+
+  const requestLocationPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+        ]);
+
+        return (
+          granted['android.permission.ACCESS_FINE_LOCATION'] === PermissionsAndroid.RESULTS.GRANTED &&
+          granted['android.permission.ACCESS_COARSE_LOCATION'] === PermissionsAndroid.RESULTS.GRANTED
+        );
+      } catch (err) {
+        setLatitude(null);
+        setLongitude(null);
+        setCoordinates({})
+        return false;
+      }
+    } else {
+      return new Promise((resolve) => {
+        Geolocation.getCurrentPosition(
+          () => {
+            // Permission granted
+            resolve(true);
+          },
+          (error) => {
+            if (error.code === 1) {
+              setLatitude(null);
+              setLongitude(null);
+              //  Permission denied
+              Alert.alert(
+                'Location Permission Required',
+                'Please allow location access in settings to use this feature.',
+                [
+                  { text: 'Cancel', style: 'cancel' },
+                  { text: 'Open Settings', onPress: () => Linking.openSettings() },
+                ]
+              );
+            } else {
+              Alert.alert('Location Error', error.message);
+            }
+            resolve(false);
+          },
+          { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 }
+        );
+      });
+    }
+  };
+
+  const checkIfGpsEnabled = useCallback(async () => {
+    try {
+      await RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+        interval: 20000,
+        fastInterval: 6000,
+      });
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }, []);
+
+
 
   const closeDate = () => {
     setCalendarVisible(false)
@@ -497,7 +632,7 @@ const WeatherScreen = ({ route }) => {
             </View>
             <View style={styles.cropsLineDivider} />
 
-            {cropList && cropList.length > 0 &&
+            {cropList && cropList.length > 0 ? (
               <View style={styles.cropsListMaincontainer}>
                 <View style={styles.calendarDropDownMainContainer}>
                   <Text style={styles.sowingdateText}>{translate("Crop")}</Text>
@@ -513,8 +648,12 @@ const WeatherScreen = ({ route }) => {
                     <Image source={require('../../assets/Images/calendarIcon.png')} style={[styles.dropDownIcon, { tintColor: Colors.textColor }]} />
                   </TouchableOpacity>
                 </View>
-              </View>
-            }
+              </View>) : (
+              <View style={{ alignItems: "center", justifyContent: "center", marginTop: 20, height: 60 }}>
+                <Text style={{ fontWeight: "500", fontSize: 16, color: Colors.black_color }}>
+                  {isConnected ? translate('location_error') : translate('no_internet_connected')}
+                </Text>
+              </View>)}
             {(pestForecastData != null && pestForecastData.length) &&
               <View style={styles.pestDiseasesContainer}>
                 <Text style={styles.pestDiseasesText}>{translate('PestDiseases')}</Text>
@@ -557,6 +696,11 @@ const WeatherScreen = ({ route }) => {
             nestedScrollEnabled={true}
             showsVerticalScrollIndicator={false}
             ListFooterComponent={<View style={{ height: 50 }} />}
+            ListEmptyComponent={() => (
+              <View style={{ flex: 1, height: Dimensions.get('window').height - 200, justifyContent: 'center', alignItems: 'center', }}>
+                <Text style={{ fontWeight: "500", fontSize: 16, color: Colors.black_color, textAlign: 'center', width: '90%' }}>{isConnected ? translate('location_error') : translate('no_internet_connected')}</Text>
+              </View>
+            )}
             renderItem={({ item }) => {
               return (
                 JSON.stringify(selectedWeather) === JSON.stringify(item) ? <View
@@ -643,8 +787,6 @@ const WeatherScreen = ({ route }) => {
                             </Text>}
                         </View>
                       </View>
-
-
                     </View>
                   </View>
 
@@ -702,6 +844,7 @@ const WeatherScreen = ({ route }) => {
                     scrollEnabled={true}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.flatListContainer}
+
                   />
                 </View> :
                   <TouchableOpacity
@@ -732,7 +875,6 @@ const WeatherScreen = ({ route }) => {
                         </Text>
                       </View>
                     </View>
-
                     <View style={styles.iconContainer}>
                       <Image source={require("../../assets/Images/cloudeIconImg.png")} style={{
                         height: width * 0.1,
