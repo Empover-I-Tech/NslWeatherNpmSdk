@@ -27,5 +27,6 @@
   "valid_location": "Please select a valid land location.",
   "Map": "Map",
   "save": "Save",
-  "edit": "Edit"
+  "edit": "Edit",
+  "location_error": "We are unable to trace your location. Please check your location and location settings."
 }
