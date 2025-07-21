@@ -28,5 +28,6 @@
   "Map": "Map",
   "save": "Save",
   "edit": "Edit",
-  "location_error": "We are unable to trace your location. Please check your location and location settings."
+  "location_error": "We are unable to trace your location. Please check your location and location settings.",
+  "PestDiseases": "Pest Diseases"
 }

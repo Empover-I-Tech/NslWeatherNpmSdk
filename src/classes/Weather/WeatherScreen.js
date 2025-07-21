@@ -190,6 +190,7 @@ const WeatherScreen = ({ route }) => {
         } else {
           setFallBackTest(finalResponse?.message || translate("No_pests_detected_moment_later"))
           setLoader(false)
+          setPestForecastData(null)
           SimpleToast.show(!isNullOrEmptyNOTTrim(finalResponse?.message) ? finalResponse?.message : translate('Something_went_wrong'));
         }
       } catch (erro) {
@@ -417,8 +418,8 @@ const WeatherScreen = ({ route }) => {
   };
 
   return (
-    <SafeAreaView style={[styles.weatherSafeAreaContainer, { backgroundColor: Colors.app_theme_color }]}>
       <View style={styles.mainContainer}>
+      <SafeAreaView style={[styles.weatherSafeAreaContainer, { backgroundColor: Colors.app_theme_color }]}>
         {Platform.OS === 'android' && <StatusBar backgroundColor={Colors.app_theme_color} barStyle={"light-content"} />}
         <View style={[styles.mainHeadersContainer, { backgroundColor: Colors.app_theme_color }]}>
           <View style={styles.mainSubHeadersContainer}>
@@ -430,6 +431,7 @@ const WeatherScreen = ({ route }) => {
             </Text>
           </View>
         </View>
+        </SafeAreaView>
 
         {selectedFilter === translate("Days_Forecast_15") && forecastData &&
           <View style={[styles.weatherInfoCard]}>
@@ -968,7 +970,6 @@ const WeatherScreen = ({ route }) => {
         </Modal>
         {loader && <CustomLoader visible={loader} />}
       </View>
-    </SafeAreaView>
   );
 };
 

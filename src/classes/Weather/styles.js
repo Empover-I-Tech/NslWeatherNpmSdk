@@ -1,11 +1,11 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, StatusBar, Platform } from "react-native";
 import { responsiveFontSize, responsiveHeight } from "react-native-responsive-dimensions";
 import { Colors } from "../../colors/Colors";
 const { height, width } = Dimensions.get("window")
 
 const styles = StyleSheet.create({
     weatherSafeAreaContainer: {
-        flex: 1,
+        paddingTop:Platform.OS==="android"?StatusBar.currentHeight:0
     },
     mainContainer: {
         flex: 1,
