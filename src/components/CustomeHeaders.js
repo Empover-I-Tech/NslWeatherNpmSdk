@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     headersTitleText: {
-        fontWeight: "500",
+        // fontWeight: "500",
+        fontWeight: global.fontStyles.SemiBold,
         fontSize: 17,
         lineHeight: 25
     },

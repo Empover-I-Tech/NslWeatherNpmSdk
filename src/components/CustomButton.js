@@ -30,7 +30,12 @@ const CustomButton = ({
                 marginTop : marginTop
             }}
         >
-            <Text style={{ color: textColor, fontSize: fontSize, fontWeight : "bold" }}>{btnText}</Text>
+            <Text style={{ 
+                color: textColor, 
+                fontSize: fontSize, 
+                // fontWeight : "bold" 
+                fontWeight : global.fontStyles.Bold
+                }}>{btnText}</Text>
         </TouchableOpacity>
     );
 };

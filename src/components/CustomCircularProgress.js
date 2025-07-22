@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 12,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
+        fontWeight: global.fontStyles.Bold,
         color: 'rgba(0, 0, 0, 1)',
     },
     subText: {

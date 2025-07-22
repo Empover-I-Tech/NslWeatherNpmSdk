@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
     },
     headerText: {
-        fontWeight: "bold",
+        // fontWeight: "bold",
         fontSize: 18,
     },
     weatherInfoCard: {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     },
     tempText: {
         fontSize: 15,
-        fontWeight: '400',
+        // fontWeight: '400',
         marginHorizontal: 5
     },
     tempText2: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     locationText: {
         marginLeft: 5,
         fontSize: 12,
-        fontWeight: "600"
+        // fontWeight: "600"
     },
     locationIcon: {
         height: width * 0.05,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     },
     weatherDescText: {
         fontSize: 25,
-        fontWeight: '500',
+        // fontWeight: '500',
         textTransform: 'capitalize',
         width: "65%"
     },
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     },
     degreeText: {
         fontSize: 14,
-        fontWeight: '400',
+        // fontWeight: '400',
         marginTop: 35,
         marginLeft: 2
     },
@@ -140,12 +140,12 @@ const styles = StyleSheet.create({
     },
     rangeText: {
         fontSize: responsiveFontSize(1.8),
-        fontWeight: '400',
+        // fontWeight: '400',
         color: Colors.lighy_black,
     },
     degree2Text: {
         fontSize: 14,
-        fontWeight: '400',
+        // fontWeight: '400',
     },
     divider: {
         width: 1,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     weatherStatText: {
         marginLeft: 5,
         fontSize: 14,
-        fontWeight: "600"
+        // fontWeight: "600"
     },
     tabsMainContainer: {
         flexDirection: "row",
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     tabText: {
-        fontWeight: "300",
+        // fontWeight: "300",
         fontSize: 10,
         marginTop: 1,
         textAlign: "center"
@@ -201,7 +201,11 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginVertical: 5
     },
-    forecastTemp: { marginTop: 5, fontSize: 14, fontWeight: '600' },
+    forecastTemp: { 
+        marginTop: 5,
+        fontSize: 14, 
+        // fontWeight: '600' 
+     },
     locationDetailsMainContainer: {
         flexDirection: "row",
         alignItems: "center",
@@ -210,12 +214,12 @@ const styles = StyleSheet.create({
     },
     locationStateText: {
         color: Colors.lighy_black,
-        fontWeight: "400",
+        // fontWeight: "400",
         fontSize: 10
     },
     locationStateValueText: {
         color: Colors.black_color,
-        fontWeight: "700",
+        // fontWeight: "700",
         fontSize: 11
     },
     cropsLineDivider: {
@@ -254,7 +258,7 @@ const styles = StyleSheet.create({
     },
     selectCropTextInput: {
         fontSize: 14,
-        fontWeight: "400",
+        // fontWeight: "400",
         lineHeight: 30,
         width: "90%",
         paddingLeft: 10,
@@ -276,7 +280,7 @@ const styles = StyleSheet.create({
     },
     pestDiseasesText: {
         color: Colors.black_color,
-        fontWeight: "600",
+        // fontWeight: "600",
         fontSize: 12
     },
     pestForecastDiseasesListMainContainer: {
@@ -311,12 +315,12 @@ const styles = StyleSheet.create({
     },
     pestText: {
         color: Colors.black_color,
-        fontWeight: "600",
+        // fontWeight: "600",
         fontSize: 14
     },
     pestDescription: {
         color: Colors.black_color,
-        fontWeight: "400",
+        // fontWeight: "400",
         fontSize: 12
     },
     cloudIcon: {
@@ -439,7 +443,7 @@ const styles = StyleSheet.create({
     },
     remedyNameText: {
         color: Colors.black_color,
-        fontWeight: '900',
+        // fontWeight: '900',
         fontSize: 14,
         lineHeight: 30
     },
@@ -466,7 +470,7 @@ const styles = StyleSheet.create({
         color: Colors.black_color,
         marginLeft: 10,
         margin: 2,
-        fontWeight: '400',
+        // fontWeight: '400',
         fontSize: 13
     },
     dividerTwo: {
