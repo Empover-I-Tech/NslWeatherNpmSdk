@@ -15,6 +15,8 @@ import ApiService from '../../Networks/ApiService';
 import { getFromAsyncStorage, isNullOrEmptyNOTTrim, MOBILENUMBER, USER_ID } from '../../Utility/Utils';
 import { useColors } from '../../colors/Colors';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
+import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
+
 
 
 const WeatherScreen = ({ route }) => {
@@ -80,7 +82,9 @@ const WeatherScreen = ({ route }) => {
       getDetailsDashBoardData(route?.params?.itemData?.coord?.lat, route?.params?.itemData?.coord?.lon)
       setLatitude(route?.params?.itemData?.coord?.lat)
       setLongitude(route?.params?.itemData?.coord?.lon)
-      getWeatherData(route?.params?.itemData?.coord?.lat, route?.params?.itemData?.coord?.lon)
+      setTimeout(()=>{
+        getWeatherData(route?.params?.itemData?.coord?.lat, route?.params?.itemData?.coord?.lon)
+      },500)
       setSelectedCrop(null)
       setSelectedDatePest(translate("Select_Date"))
       setPestForecastData(null)
@@ -91,7 +95,9 @@ const WeatherScreen = ({ route }) => {
       getDetailsDashBoardData(route?.params?.itemData?.coord?.lat, route?.params?.itemData?.coord?.lon)
       setLatitude(route?.params?.itemData?.coord?.lat)
       setLongitude(route?.params?.itemData?.coord?.lon)
+      setTimeout(()=>{
       getWeatherData(route?.params?.itemData?.coord?.lat, route?.params?.itemData?.coord?.lon)
+      },500)
       setSelectedCrop(null)
       setSelectedDatePest(translate("Select_Date"))
       setPestForecastData(null)
@@ -125,28 +131,56 @@ const WeatherScreen = ({ route }) => {
   const getWeatherData = async (newLat, newLong) => {
     const url = configs_nvm.BASE_URL_NVM + CONFIG_KEYS.WEATHERDETAILS.nslgetWeatherDetailsV1
     if (isConnected) {
-      setLoader(true)
+     setTimeout(() => {
+        setLoader(true)
+      }, 500)
+    try {
       const body = {
         latitude: newLat,
         longitude: newLong,
         mobileNumber: await getFromAsyncStorage(MOBILENUMBER),
         userId: await getFromAsyncStorage(USER_ID),
       };
-      const finalResponse = await ApiService.post(url, body, false)
+      const finalResponse = await ApiService.post(url, body, false);
       if (finalResponse.statusCode == "200" || finalResponse.statusCode == STATUS_CODE_SUCCESS_200) {
-        setForecastData(finalResponse.response.dailyBaseWeatherInfo)
-        setHourlyData(finalResponse.response.hourlyBaseWeatherInfo)
-        let res = await getDetailsFromLatlong(newLat, newLong)
-        setCityDet(res)
-        setLoader(false)
+        setTimeout(async () => {
+          setForecastData(finalResponse.response.dailyBaseWeatherInfo);
+          setHourlyData(finalResponse.response.hourlyBaseWeatherInfo);
+          let res = await getDetailsFromLatlong(newLat, newLong);
+          setCityDet(res);
+          setTimeout(() => {
+            setLoader(false);
+          }, 1000)
+        }, 100);
       } else {
-        setLoader(false)
-        SimpleToast.show(!isNullOrEmptyNOTTrim(finalResponse?.message) ? finalResponse?.message : translate('Something_went_wrong'));
+        setTimeout(() => {
+          setLoader(false);
+        }, 1000)
+        SimpleToast.show(
+          !isNullOrEmptyNOTTrim(finalResponse?.message)
+            ? finalResponse?.message
+            : translate('Something_went_wrong')
+        );
       }
-    } else {
-      SimpleToast.show(translate("no_internet_connected"))
+    } catch (error) {
+      setTimeout(() => {
+          setLoader(false);
+        }, 500)
+      console.error('Error in getWeatherData:', error);
+      SimpleToast.show(translate('Something_went_wrong'));
+    } finally {
+      setTimeout(()=>{
+      setLoader(false);
+      },500)
     }
+  } else {
+    setTimeout(() => {
+      setLoader(false);
+    }, 500)
+    SimpleToast.show(translate("no_internet_connected"));
   }
+};
+
 
 
   let todayForecast = forecastData?.forecast?.filter((data) => {
@@ -183,21 +217,39 @@ const WeatherScreen = ({ route }) => {
     const finalResponse = await ApiService.post(pestUrlInfo, payload)
     if (isConnected) {
       try {
+      if(finalResponse){
+          setTimeout(() => {
+          setLoader(false);
+        }, 500)
         if (finalResponse?.response?.pestForecast.length > 0) {
           let pestForecastList = finalResponse.response.pestForecast
           setPestForecastData(pestForecastList)
-          setLoader(false)
+            setTimeout(() => {
+              setLoader(false);
+            }, 1000)
         } else {
           setFallBackTest(finalResponse?.message || translate("No_pests_detected_moment_later"))
-          setLoader(false)
           setPestForecastData(null)
+          setTimeout(() => {
+            setLoader(false);
+          }, 1000)
           SimpleToast.show(!isNullOrEmptyNOTTrim(finalResponse?.message) ? finalResponse?.message : translate('Something_went_wrong'));
         }
+      }
       } catch (erro) {
-        setLoading(false)
+            setTimeout(() => {
+            setLoader(false);
+          }, 500)
+      }
+      finally{
+        setTimeout(() => {
+          setLoader(false)
+        }, 500)
       }
     } else {
-      setLoading(false)
+          setTimeout(() => {
+            setLoader(false);
+          }, 500)
       SimpleToast.show(translate('no_internet_conneccted'))
     }
   }
@@ -237,7 +289,7 @@ const WeatherScreen = ({ route }) => {
       catch (error) {
         setTimeout(() => {
           setLoader(false)
-        }, 1000);
+        }, 2000);
         SimpleToast.show(error.message)
       }
     } else {
@@ -299,7 +351,7 @@ const WeatherScreen = ({ route }) => {
   const callLocationNavigation = async () => {
     if (isConnected) {
       const hasPermission = await requestLocationPermission();
-      if (hasPermission) {
+      if (hasPermission === 'granted') {
         if (Platform.OS == "android") {
           const isGpsEnabled = await checkIfGpsEnabled();
           if (isGpsEnabled) {
@@ -328,52 +380,119 @@ const WeatherScreen = ({ route }) => {
   }
   console.log("checkingZoomongLevel=-=->", mapZoomingLevel)
 
-  const requestLocationPermission = async () => {
+const requestLocationPermission = async () => {
     if (Platform.OS === 'android') {
       try {
         const granted = await PermissionsAndroid.requestMultiple([
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
         ]);
-
-        return (
-          granted['android.permission.ACCESS_FINE_LOCATION'] === PermissionsAndroid.RESULTS.GRANTED &&
-          granted['android.permission.ACCESS_COARSE_LOCATION'] === PermissionsAndroid.RESULTS.GRANTED
-        );
-      } catch (err) {
-        setLatitude(null);
-        setLongitude(null);
-        setCoordinates({})
-        return false;
+        const fine = granted[PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION];
+        const coarse = granted[PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION];
+ 
+        if (
+          fine === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN ||
+          coarse === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN
+        ) {
+          Alert.alert(
+            translate("permission_required"),
+            translate("permission_permantely_den"),
+            [
+              { text: translate("cancel"), style: 'cancel' },
+              { text: translate("open_settings"), onPress: () => Linking.openSettings() },
+            ]
+          );
+          return 'never_ask_again';
+        }
+ 
+        if (
+          fine === PermissionsAndroid.RESULTS.DENIED ||
+          coarse === PermissionsAndroid.RESULTS.DENIED
+        ) {
+          Alert.alert(
+            translate("permission_required"),
+            translate("permission_permantely_den"),
+            [
+              { text: translate("cancel"), style: 'cancel' },
+              { text: translate("open_settings"), onPress: () => Linking.openSettings() },
+            ]
+          );
+          return 'denied';
+        }
+ 
+        if (
+          fine === PermissionsAndroid.RESULTS.GRANTED &&
+          coarse === PermissionsAndroid.RESULTS.GRANTED
+        ) {
+          return 'granted';
+        }
+ 
+        return 'unknown';
+      } catch (error) {
+        console.warn('Android location permission error:', error);
+        return 'error';
       }
-    } else {
-      return new Promise((resolve) => {
-        Geolocation.getCurrentPosition(
-          () => {
-            // Permission granted
-            resolve(true);
-          },
-          (error) => {
-            if (error.code === 1) {
-              setLatitude(null);
-              setLongitude(null);
-              //  Permission denied
-              Alert.alert(
-                'Location Permission Required',
-                'Please allow location access in settings to use this feature.',
-                [
-                  { text: 'Cancel', style: 'cancel' },
-                  { text: 'Open Settings', onPress: () => Linking.openSettings() },
-                ]
-              );
-            } else {
-              Alert.alert('Location Error', error.message);
-            }
-            resolve(false);
-          },
-          { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 }
-        );
-      });
+    } else if (Platform.OS === 'ios') {
+      try {
+        const status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+ 
+        if (status === RESULTS.GRANTED) {
+          return 'granted';
+        }
+ 
+        if (status === RESULTS.DENIED) {
+          const requestStatus = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+          if (requestStatus === RESULTS.GRANTED) {
+            return 'granted';
+          } else if (requestStatus === RESULTS.BLOCKED) {
+             Alert.alert(
+            translate("permission_required"),
+            translate("permission_permantely_den"),
+            [
+              { text: translate("cancel"), style: 'cancel' },
+              { text: translate("open_settings"), onPress: () => Linking.openSettings() },
+            ]
+          );
+            return 'blocked';
+          } else {
+           Alert.alert(
+            translate("permission_required"),
+            translate("permission_permantely_den"),
+            [
+              { text: translate("cancel"), style: 'cancel' },
+              { text: translate("open_settings"), onPress: () => Linking.openSettings() },
+            ]
+          );
+            return 'denied';
+          }
+        }
+ 
+        if (status === RESULTS.BLOCKED) {
+          Alert.alert(
+            translate("permission_required"),
+            translate("permissionBlocked"),
+            [
+              { text: translate("cancel"), style: 'cancel' },
+              { text: translate("open_settings"), onPress: () => openSettings() },
+            ]
+          );
+          return 'blocked';
+        }
+ 
+        if (status === RESULTS.UNAVAILABLE) {
+          Alert.alert(
+            translate("Not_Available"),
+            translate("permissionNotAvailable"),
+            [{ text: translate("ok") }]
+          );
+          return 'unavailable';
+        }
+ 
+        return 'unknown';
+      } catch (error) {
+        console.warn('iOS location permission error:', error);
+        return 'error';
+      }
     }
   };
 
