@@ -33,8 +33,8 @@ const CustomButton = ({
             <Text style={{ 
                 color: textColor, 
                 fontSize: fontSize, 
-                // fontWeight : "bold" 
-                fontWeight : global.fontStyles.Bold
+                // fontFamily : "bold" 
+                fontFamily : global.fontStyles.Bold
                 }}>{btnText}</Text>
         </TouchableOpacity>
     );

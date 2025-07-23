@@ -64,7 +64,7 @@ const Remedyrecommendation = ({ route }) => {
         <View style={styles.remedyMainContainer}>
           <View style={styles.remedySubContainer}>
             <View style={{ width: "78%" }}>
-              <Text style={[styles.remedyNameText,{fontWeight : global.fontStyles.Bold}]}>{pests}</Text>
+              <Text style={[styles.remedyNameText,{fontFamily : global.fontStyles.Bold}]}>{pests}</Text>
               <Text style={styles.remedyDescription}>{description}</Text>
             </View>
             {diseaseData?.percentage && <CustomCircularProgress
@@ -88,7 +88,7 @@ const Remedyrecommendation = ({ route }) => {
                     })
                   )
                     : (
-                      <Text style={[styles.remedyNotAvailable,{fontWeight : global.fontStyles.Regular}]}>{translate('not_available')}</Text>
+                      <Text style={[styles.remedyNotAvailable,{fontFamily : global.fontStyles.Regular}]}>{translate('not_available')}</Text>
                     )}
               </ScrollView>
 

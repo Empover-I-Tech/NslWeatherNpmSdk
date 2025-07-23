@@ -544,7 +544,7 @@ const requestLocationPermission = async () => {
             <TouchableOpacity style={styles.backButton} onPress={handleBackScreen}>
               <Image source={require("../../assets/Images/ScreenBackIcon.png")} style={styles.backIcon} />
             </TouchableOpacity>
-            <Text style={[styles.headerText, { color: Colors.secondaryColor , fontWeight : global.fontStyles.Bold}]}>
+            <Text style={[styles.headerText, { color: Colors.secondaryColor , fontFamily : global.fontStyles.Bold}]}>
               {translate("weather")}
             </Text>
           </View>
@@ -556,10 +556,10 @@ const requestLocationPermission = async () => {
             <View style={[styles.locationTimeContainer, { marginBottom: 0, }]}>
 
               <View style={[styles.locationContainer, { flexDirection: "column", alignItems: "center", }]}>
-                <Text style={[styles.tempText, styles.tempText2,{fontWeight : global.fontStyles.Regular}]}>
+                <Text style={[styles.tempText, styles.tempText2,{fontFamily : global.fontStyles.Regular}]}>
                   {todayForecast[0]?.displayDay || '--'}
                 </Text>
-                <Text style={[styles.rangeText,{fontWeight : global.fontStyles.Regular}]}>
+                <Text style={[styles.rangeText,{fontFamily : global.fontStyles.Regular}]}>
                   {todayForecast[0]?.date || '--'}
                 </Text>
               </View>
@@ -567,7 +567,7 @@ const requestLocationPermission = async () => {
               <TouchableOpacity onPress={() => { callLocationNavigation() }}
                 style={[styles.locationContainer, { marginTop: -responsiveHeight(4) }]}>
                 <Image source={require("../../assets/Images/locationImgIcon.png")} style={styles.locationIcon} />
-                <Text style={[styles.locationText, { color: Colors.textColor, fontWeight : global.fontStyles.SemiBold }]}>
+                <Text style={[styles.locationText, { color: Colors.textColor, fontFamily : global.fontStyles.SemiBold }]}>
                   {(todayForecast[0]?.city) || '--'}
                 </Text>
               </TouchableOpacity>
@@ -579,7 +579,7 @@ const requestLocationPermission = async () => {
 
                 <View style={styles.weatherDescription}>
 
-                  <Text style={[styles.weatherDescText, { color: Colors.yellow_rgba, fontWeight : global.fontStyles.SemiBold, minWidth: "80%", fontSize: 15 }]}>
+                  <Text style={[styles.weatherDescText, { color: Colors.yellow_rgba, fontFamily : global.fontStyles.SemiBold, minWidth: "80%", fontSize: 15 }]}>
                     {todayForecast[0]?.weather_description || "--"}
                   </Text>
 
@@ -588,7 +588,7 @@ const requestLocationPermission = async () => {
                       <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 34 }]}>
                         {Math.round(todayForecast[0]?.max_temp)}
                       </Text>
-                      <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3, fontWeight : global.fontStyles.Regular }]}>{"°c"}</Text>
+                      <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3, fontFamily : global.fontStyles.Regular }]}>{"°c"}</Text>
                     </View> : <Text style={[styles.tempText, { color: Colors.textColor }]}>
                       {'--'}
                     </Text>
@@ -597,10 +597,10 @@ const requestLocationPermission = async () => {
                   <View style={styles.tempRange}>
                     {todayForecast[0]?.max_temp ?
                       <View style={styles.todaysWeatherContainer}>
-                        <Text style={[styles.rangeText, { color: Colors.lightish_grey, fontWeight : global.fontStyles.Regular }]}>
+                        <Text style={[styles.rangeText, { color: Colors.lightish_grey, fontFamily : global.fontStyles.Regular }]}>
                           {`${translate('high')} ${Math.round(todayForecast[0]?.max_temp)}`}
                         </Text>
-                        <Text style={[styles.degree2Text, { color: Colors.lightish_grey,fontWeight : global.fontStyles.Regular }]}>{"°"}</Text>
+                        <Text style={[styles.degree2Text, { color: Colors.lightish_grey,fontFamily : global.fontStyles.Regular }]}>{"°"}</Text>
                       </View> :
 
                       <Text style={[styles.tempText, { color: Colors.lightish_grey }]}>
@@ -609,10 +609,10 @@ const requestLocationPermission = async () => {
                     <View style={styles.divider} />
                     {todayForecast[0]?.min_temp ?
                       <View style={styles.todaysWeatherContainer2}>
-                        <Text style={[styles.rangeText, { color: Colors.lightish_grey, fontWeight : global.fontStyles.Regular }]}>
+                        <Text style={[styles.rangeText, { color: Colors.lightish_grey, fontFamily : global.fontStyles.Regular }]}>
                           {`${translate('low')} ${Math.round(todayForecast[0]?.min_temp)}`}
                         </Text>
-                        <Text style={[styles.degree2Text, { color: Colors.lightish_grey , fontWeight : global.fontStyles.Regular}]}>{"°"}</Text>
+                        <Text style={[styles.degree2Text, { color: Colors.lightish_grey , fontFamily : global.fontStyles.Regular}]}>{"°"}</Text>
                       </View> :
 
                       <Text style={[styles.tempText, { color: Colors.lightish_grey }]}>
@@ -626,21 +626,21 @@ const requestLocationPermission = async () => {
             <View style={styles.weatherStats}>
               <View style={styles.weatherStatItem}>
                 <Image source={require('../../assets/Images/forceRain.png')} style={styles.weatherStatIcon} />
-                <Text style={[styles.weatherStatText, { color: Colors.textColor,fontWeight : global.fontStyles.SemiBold }]}>
+                <Text style={[styles.weatherStatText, { color: Colors.textColor,fontFamily : global.fontStyles.SemiBold }]}>
                   {todayForecast[0]?.speed ? `${todayForecast[0]?.speed}/h` : '--'}
                 </Text>
               </View>
               <View style={styles.divider} />
               <View style={styles.weatherStatItem}>
                 <Image source={require('../../assets/Images/dropIcon.png')} style={styles.weatherStatIcon} />
-                <Text style={[styles.weatherStatText, { color: Colors.textColor , fontWeight : global.fontStyles.SemiBold }]}>
+                <Text style={[styles.weatherStatText, { color: Colors.textColor , fontFamily : global.fontStyles.SemiBold }]}>
                   {todayForecast[0]?.humidity ? `${todayForecast[0]?.humidity}%` : '--'}
                 </Text>
               </View>
               <View style={styles.divider} />
               <View style={styles.weatherStatItem}>
                 <Image source={require('../../assets/Images/cloud.png')} style={styles.weatherStatIcon} />
-                <Text style={[styles.weatherStatText, { color: Colors.textColor, fontWeight : global.fontStyles.SemiBold }]}>
+                <Text style={[styles.weatherStatText, { color: Colors.textColor, fontFamily : global.fontStyles.SemiBold }]}>
                   {todayForecast[0]?.rain !== undefined ? `${todayForecast[0]?.rain}%` : '--'}
                 </Text>
               </View>
@@ -665,7 +665,7 @@ const requestLocationPermission = async () => {
             alignItems: "center",
             justifyContent: "center",
           }, { width: "25%", height: 30 }]}>
-            <Text style={[styles.tabText, { color: selectedFilter === translate("Days_Forecast_15") ? Colors.secondaryColor : Colors.app_theme_color, fontWeight : global.fontStyles.Regular }]}>{translate("Days_Forecast_15")}</Text>
+            <Text style={[styles.tabText, { color: selectedFilter === translate("Days_Forecast_15") ? Colors.secondaryColor : Colors.app_theme_color, fontFamily : global.fontStyles.Regular }]}>{translate("Days_Forecast_15")}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => {
@@ -686,7 +686,7 @@ const requestLocationPermission = async () => {
               alignItems: "center",
               justifyContent: "center",
             }, { width: "25%", height: 30, marginHorizontal: 5 }]}>
-            <Text style={[styles.tabText, { color: selectedFilter === translate("Hourly") ? Colors.secondaryColor : Colors.app_theme_color, fontWeight : global.fontStyles.Regular }]}>3 {translate("Hourly")}</Text>
+            <Text style={[styles.tabText, { color: selectedFilter === translate("Hourly") ? Colors.secondaryColor : Colors.app_theme_color, fontFamily : global.fontStyles.Regular }]}>3 {translate("Hourly")}</Text>
           </TouchableOpacity>
 
 
@@ -709,7 +709,7 @@ const requestLocationPermission = async () => {
               alignItems: "center",
               justifyContent: "center",
             }, { width: "25%", height: 30, }]}>
-            <Text style={[styles.tabText, { color: selectedFilter === translate('PestForecast') ? Colors.secondaryColor : Colors.app_theme_color,fontWeight : global.fontStyles.Regular }]}>{translate('PestForecast')}</Text>
+            <Text style={[styles.tabText, { color: selectedFilter === translate('PestForecast') ? Colors.secondaryColor : Colors.app_theme_color,fontFamily : global.fontStyles.Regular }]}>{translate('PestForecast')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -733,21 +733,21 @@ const requestLocationPermission = async () => {
               </View>
             </View>
             <View style={styles.weatherLineDivider} />
-            <Text style={[styles.forecastTemp, { color: Colors.textColor, fontWeight : global.fontStyles.Regular, fontSize: 12 }]}>
+            <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily : global.fontStyles.Regular, fontSize: 12 }]}>
               {translate("Showing_infestation_Forecast")}
             </Text>
             <View style={styles.locationDetailsMainContainer}>
               <View>
-                <Text style={[styles.forecastTemp, styles.locationStateText,{fontWeight : global.fontStyles.Regular}]}>{translate("State")}</Text>
-                <Text style={[styles.forecastTemp, styles.locationStateValueText,{fontWeight : global.fontStyles.SemiBold}]}>{cityDet?.state || '--'}</Text>
+                <Text style={[styles.forecastTemp, styles.locationStateText,{fontFamily : global.fontStyles.Regular}]}>{translate("State")}</Text>
+                <Text style={[styles.forecastTemp, styles.locationStateValueText,{fontFamily : global.fontStyles.SemiBold}]}>{cityDet?.state || '--'}</Text>
               </View>
               <View>
-                <Text style={[styles.forecastTemp, styles.locationStateText,{fontWeight : global.fontStyles.Regular}]}>{translate("District")}</Text>
-                <Text style={[styles.forecastTemp, styles.locationStateValueText,{fontWeight : global.fontStyles.SemiBold}]}>{cityDet?.district || '--'}</Text>
+                <Text style={[styles.forecastTemp, styles.locationStateText,{fontFamily : global.fontStyles.Regular}]}>{translate("District")}</Text>
+                <Text style={[styles.forecastTemp, styles.locationStateValueText,{fontFamily : global.fontStyles.SemiBold}]}>{cityDet?.district || '--'}</Text>
               </View>
               <View>
-                <Text style={[styles.forecastTemp, styles.locationStateText,{fontWeight : global.fontStyles.Regular}]}>{translate("new_village")}</Text>
-                <Text style={[styles.forecastTemp, styles.locationStateValueText,{fontWeight : global.fontStyles.SemiBold}]}>{cityDet?.village || cityDet?.locality || 'N/A'}</Text>
+                <Text style={[styles.forecastTemp, styles.locationStateText,{fontFamily : global.fontStyles.Regular}]}>{translate("new_village")}</Text>
+                <Text style={[styles.forecastTemp, styles.locationStateValueText,{fontFamily : global.fontStyles.SemiBold}]}>{cityDet?.village || cityDet?.locality || 'N/A'}</Text>
               </View>
             </View>
             <View style={styles.cropsLineDivider} />
@@ -757,26 +757,26 @@ const requestLocationPermission = async () => {
                 <View style={styles.calendarDropDownMainContainer}>
                   <Text style={styles.sowingdateText}>{translate("Crop")}</Text>
                   <TouchableOpacity onPress={() => setShowDropDowns(true)} style={[styles.textInputContainer, { borderColor: Colors.lightish_grey }]}>
-                    <Text style={[styles.selectCropTextInput,{fontWeight : global.fontStyles.Regular}]}>{selectedCrop != undefined && selectedCrop != translate('select') ? selectedCrop : translate('select')}</Text>
+                    <Text style={[styles.selectCropTextInput,{fontFamily : global.fontStyles.Regular}]}>{selectedCrop != undefined && selectedCrop != translate('select') ? selectedCrop : translate('select')}</Text>
                     <Image source={require('../../assets/Images/down_arow.png')} style={[styles.dropDownIcon, { tintColor: Colors.black_color }]} />
                   </TouchableOpacity>
                 </View>
                 <View style={styles.calendarDropDownMainContainer}>
                   <Text style={styles.sowingdateText}>{translate("sowing_date")}</Text>
                   <TouchableOpacity onPress={handleDateModal} style={[styles.textInputContainer, { borderColor: Colors.lightish_grey }]}>
-                    <Text style={[styles.selectCropTextInput,{fontWeight : global.fontStyles.Regular}]}>{selectedDatePest}</Text>
+                    <Text style={[styles.selectCropTextInput,{fontFamily : global.fontStyles.Regular}]}>{selectedDatePest}</Text>
                     <Image source={require('../../assets/Images/calendarIcon.png')} style={[styles.dropDownIcon, { tintColor: Colors.textColor }]} />
                   </TouchableOpacity>
                 </View>
               </View>) : (
               <View style={{ alignItems: "center", justifyContent: "center", marginTop: 20, height: 60 }}>
-                <Text style={{ fontWeight: "500", fontSize: 16, color: Colors.black_color }}>
+                <Text style={{ fontFamily: "500", fontSize: 16, color: Colors.black_color }}>
                   {isConnected ? translate('location_error') : translate('no_internet_connected')}
                 </Text>
               </View>)}
             {(pestForecastData != null && pestForecastData.length) &&
               <View style={styles.pestDiseasesContainer}>
-                <Text style={[styles.pestDiseasesText,{fontWeight : global.fontStyles.SemiBold}]}>{translate('PestDiseases')}</Text>
+                <Text style={[styles.pestDiseasesText,{fontFamily : global.fontStyles.SemiBold}]}>{translate('PestDiseases')}</Text>
               </View>
 
             }
@@ -793,8 +793,8 @@ const requestLocationPermission = async () => {
                         <View style={styles.peastDetailsLine} />
 
                         <View style={styles.pestTextDetailsContainer}>
-                          <Text style={[styles.pestText,{fontWeight : global.fontStyles.SemiBold}]}>{item?.pests}</Text>
-                          {item?.description && <Text style={[styles.pestDescription,{fontWeight : global.fontStyles.Regular}]}>{item?.description}</Text>}
+                          <Text style={[styles.pestText,{fontFamily : global.fontStyles.SemiBold}]}>{item?.pests}</Text>
+                          {item?.description && <Text style={[styles.pestDescription,{fontFamily : global.fontStyles.Regular}]}>{item?.description}</Text>}
                         </View>
                         <CustomCircularProgress
                           percentage={item?.percentage} radius={25} strokeWidth={6} percentageText={item?.percentage} level={item?.level}
@@ -818,7 +818,7 @@ const requestLocationPermission = async () => {
             ListFooterComponent={<View style={{ height: 50 }} />}
             ListEmptyComponent={() => (
               <View style={{ flex: 1, height: Dimensions.get('window').height - 200, justifyContent: 'center', alignItems: 'center', }}>
-                <Text style={{ fontWeight: "500", fontSize: 16, color: Colors.black_color, textAlign: 'center', width: '90%' }}>{isConnected ? translate('location_error') : translate('no_internet_connected')}</Text>
+                <Text style={{ fontFamily: "500", fontSize: 16, color: Colors.black_color, textAlign: 'center', width: '90%' }}>{isConnected ? translate('location_error') : translate('no_internet_connected')}</Text>
               </View>
             )}
             renderItem={({ item }) => {
@@ -831,7 +831,7 @@ const requestLocationPermission = async () => {
                       <Text style={[styles.tempText, { color: Colors.textColor, marginHorizontal: 0, textAlign: "left", alignSelf: "flex-start" }]}>
                         {selectedWeather?.data[0]?.displayDay}
                       </Text>
-                      <Text style={[styles.rangeText,{fontWeight : global.fontStyles.Regular}]}>
+                      <Text style={[styles.rangeText,{fontFamily : global.fontStyles.Regular}]}>
                         {moment(selectedWeather?.data[0]?.dt_txt).format('DD-MMM-YYYY')}
                       </Text>
                     </View>
@@ -841,7 +841,7 @@ const requestLocationPermission = async () => {
                           callLocationNavigation()
                         }} style={styles.locationContainer}>
                         <Image source={require("../../assets/Images/locationImgIcon.png")} style={styles.locationIcon} />
-                        <Text style={[styles.locationText, { color: Colors.textColor, fontWeight : global.fontStyles.SemiBold }]}>
+                        <Text style={[styles.locationText, { color: Colors.textColor, fontFamily : global.fontStyles.SemiBold }]}>
                           {(selectedWeather?.data[0]?.city) || '--'}
                         </Text>
                       </TouchableOpacity>
@@ -866,7 +866,7 @@ const requestLocationPermission = async () => {
 
 
                       <View style={styles.weatherDescription}>
-                        <Text style={[styles.weatherDescText, { color: Colors.yellow_rgba, fontFamily: "", fontWeight: global.fontStyles.Regular, minWidth: "80%", fontSize: 15 }]}>
+                        <Text style={[styles.weatherDescText, { color: Colors.yellow_rgba, fontFamily: "", fontFamily: global.fontStyles.Regular, minWidth: "80%", fontSize: 15 }]}>
                           {selectedWeather?.data[0]?.weather_description || "--"}
                         </Text>
 
@@ -884,10 +884,10 @@ const requestLocationPermission = async () => {
                         <View style={styles.tempRange}>
                           {selectedWeather?.data[0]?.max_temp ?
                             <View style={{ flexDirection: "row", alignItems: "center", marginRight: 5 }}>
-                              <Text style={[styles.rangeText, { color: Colors.lightish_grey,fontWeight : global.fontStyles.Regular }]}>
+                              <Text style={[styles.rangeText, { color: Colors.lightish_grey,fontFamily : global.fontStyles.Regular }]}>
                                 {`${translate('high')} ${Math.round(selectedWeather?.data[0]?.max_temp)}`}
                               </Text>
-                              <Text style={[styles.degree2Text, { color: Colors.lightish_grey, fontWeight : global.fontStyles.Regular }]}>{"°"}</Text>
+                              <Text style={[styles.degree2Text, { color: Colors.lightish_grey, fontFamily : global.fontStyles.Regular }]}>{"°"}</Text>
                             </View> :
 
                             <Text style={[styles.tempText, { color: Colors.lightish_grey }]}>
@@ -896,10 +896,10 @@ const requestLocationPermission = async () => {
                           <View style={styles.divider} />
                           {selectedWeather?.data[0]?.min_temp ?
                             <View style={{ flexDirection: "row", alignItems: 'center', marginLeft: 5 }}>
-                              <Text style={[styles.rangeText, { color: Colors.lightish_grey,fontWeight : global.fontStyles.Regular }]}>
+                              <Text style={[styles.rangeText, { color: Colors.lightish_grey,fontFamily : global.fontStyles.Regular }]}>
                                 {`${translate('low')} ${Math.round(selectedWeather?.data[0]?.min_temp)}`}
                               </Text>
-                              <Text style={[styles.degree2Text, { color: Colors.lightish_grey , fontWeight : global.fontStyles.Regular }]}>{"°"}</Text>
+                              <Text style={[styles.degree2Text, { color: Colors.lightish_grey , fontFamily : global.fontStyles.Regular }]}>{"°"}</Text>
                             </View> :
 
                             <Text style={[styles.tempText, { color: Colors.lightish_grey }]}>
@@ -913,21 +913,21 @@ const requestLocationPermission = async () => {
                   <View style={styles.weatherStats}>
                     <View style={styles.weatherStatItem}>
                       <Image source={require('../../assets/Images/forceRain.png')} style={styles.weatherStatIcon} />
-                      <Text style={[styles.weatherStatText, { color: Colors.textColor, fontWeight : global.fontStyles.SemiBold }]}>
+                      <Text style={[styles.weatherStatText, { color: Colors.textColor, fontFamily : global.fontStyles.SemiBold }]}>
                         {selectedWeather?.data[0]?.speed ? `${selectedWeather?.data[0]?.speed}/h` : '--'}
                       </Text>
                     </View>
                     <View style={styles.divider} />
                     <View style={styles.weatherStatItem}>
                       <Image source={require('../../assets/Images/dropIcon.png')} style={styles.weatherStatIcon} />
-                      <Text style={[styles.weatherStatText, { color: Colors.textColor, fontWeight : global.fontStyles.SemiBold }]}>
+                      <Text style={[styles.weatherStatText, { color: Colors.textColor, fontFamily : global.fontStyles.SemiBold }]}>
                         {selectedWeather?.data[0]?.humidity ? `${selectedWeather?.data[0]?.humidity}%` : '--'}
                       </Text>
                     </View>
                     <View style={styles.divider} />
                     <View style={styles.weatherStatItem}>
                       <Image source={require('../../assets/Images/cloud.png')} style={styles.weatherStatIcon} />
-                      <Text style={[styles.weatherStatText, { color: Colors.textColor,fontWeight : global.fontStyles.SemiBold}]}>
+                      <Text style={[styles.weatherStatText, { color: Colors.textColor,fontFamily : global.fontStyles.SemiBold}]}>
                         {selectedWeather?.data[0]?.rain !== undefined ? `${selectedWeather?.data[0]?.rain}%` : '--'}
                       </Text>
                     </View>
@@ -945,7 +945,7 @@ const requestLocationPermission = async () => {
                             justifyContent: "center",
                           }
                         } >
-                          <Text style={[styles.forecastTemp, { color: Colors.textColor, width: 25,fontWeight : global.fontStyles.SemiBold }]}>
+                          <Text style={[styles.forecastTemp, { color: Colors.textColor, width: 25,fontFamily : global.fontStyles.SemiBold }]}>
                             {Math.round(subItem?.max_temp) || '--'}
                           </Text>
                           <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3 }]}>{"°c"}</Text>
@@ -954,7 +954,7 @@ const requestLocationPermission = async () => {
                           <Image source={{ uri: subItem?.image }} style={styles.forecastIcon} />
                         }
 
-                        <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily: "", fontWeight: global.fontStyles.Regular }]}>
+                        <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily: "", fontFamily: global.fontStyles.Regular }]}>
                           {subItem.time}
                         </Text>
                       </View>
@@ -990,7 +990,7 @@ const requestLocationPermission = async () => {
                       )}
 
                       <View style={styles.rangeContainer}>
-                        <Text style={[styles.rangeText,{fontWeight : global.fontStyles.Regular}]}>
+                        <Text style={[styles.rangeText,{fontFamily : global.fontStyles.Regular}]}>
                           {selectedFilter === translate("Days_Forecast_15") ? item?.date : moment(item?.data[0]?.dt_txt).format('DD-MMM-YYYY') || '--'}
                         </Text>
                       </View>
