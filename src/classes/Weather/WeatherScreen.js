@@ -2,7 +2,7 @@ import { Platform, Text, StatusBar, View, FlatList, Image, TouchableOpacity, Dim
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { translate } from '../../Localization/Localisation';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useFocusEffect } from '@react-navigation/native';
 import { responsiveHeight } from 'react-native-responsive-dimensions';
 import SimpleToast from 'react-native-simple-toast';
 import styles from './styles';
@@ -73,6 +73,12 @@ const WeatherScreen = ({ route }) => {
     }
 
   }, [route?.params?.backScreen])
+
+      useFocusEffect(
+        useCallback(() => {
+            setLoader(true)
+        }, [])
+    );
   console.log("checki=-=-=-=-Latitude", latitude, longitude)
 
   useEffect(() => {
@@ -249,7 +255,7 @@ const WeatherScreen = ({ route }) => {
           setTimeout(() => {
             setLoader(false);
           }, 500)
-      SimpleToast.show(translate('no_internet_conneccted'))
+      SimpleToast.show(translate('no_internet_connected'))
     }
   }
 
@@ -292,7 +298,7 @@ const WeatherScreen = ({ route }) => {
         SimpleToast.show(error.message)
       }
     } else {
-      SimpleToast.show(translate('no_internet_conneccted'))
+      SimpleToast.show(translate('no_internet_connected'))
     }
   }
 
@@ -348,7 +354,7 @@ const WeatherScreen = ({ route }) => {
   }, []);
 
   const callLocationNavigation = async () => {
-    if (isConnected) {
+    // if (isConnected) {
       const hasPermission = await requestLocationPermission();
       if (hasPermission === 'granted') {
         if (Platform.OS == "android") {
@@ -356,7 +362,13 @@ const WeatherScreen = ({ route }) => {
           if (isGpsEnabled) {
             // LocationNavigation()
             // navigation.navigate('Location', { screeName: "WeatherScreen", address: cityDet, coordinates: { latitude, longitude } })
+            if(isConnected){
             navigation.navigate('Location', { coordinates: { latitude: latitude, longitude: longitude, address: cityDet, screenName: "WeatherScreen", zoom: mapZoomingLevel } })
+
+            }else{
+      SimpleToast.show(translate('no_internet_connected'));
+
+            }
 
           }
           else {
@@ -373,9 +385,9 @@ const WeatherScreen = ({ route }) => {
         // console.log('ehehehehe F1')
         fetchLocation()
       }
-    } else {
-      SimpleToast.show(translate('no_internet_conneccted'));
-    }
+  //   } else {
+      // SimpleToast.show(translate('no_internet_connected'));
+  //   }
   }
   console.log("checkingZoomongLevel=-=->", mapZoomingLevel)
 
@@ -536,9 +548,10 @@ const requestLocationPermission = async () => {
   };
 
   return (
-      <View style={styles.mainContainer}>
+    <>
+     <View style={styles.mainContainer}>
       <SafeAreaView style={[styles.weatherSafeAreaContainer, { backgroundColor: Colors.app_theme_color }]}>
-        {Platform.OS === 'android' && <StatusBar backgroundColor={Colors.app_theme_color} barStyle={"light-content"} />}
+        {Platform.OS === 'android' && <StatusBar translate backgroundColor={Colors.app_theme_color} barStyle={"light-content"} />}
         <View style={[styles.mainHeadersContainer, { backgroundColor: Colors.app_theme_color }]}>
           <View style={styles.mainSubHeadersContainer}>
             <TouchableOpacity style={styles.backButton} onPress={handleBackScreen}>
@@ -664,7 +677,8 @@ const requestLocationPermission = async () => {
             borderRadius: 5,
             alignItems: "center",
             justifyContent: "center",
-          }, { width: "25%", height: 30 }]}>
+          
+          }, { minWidth: "25%", minHeight: 30 }]}>
             <Text style={[styles.tabText, { color: selectedFilter === translate("Days_Forecast_15") ? Colors.secondaryColor : Colors.app_theme_color, fontFamily : global.fontStyles.Regular }]}>{translate("Days_Forecast_15")}</Text>
           </TouchableOpacity>
 
@@ -685,7 +699,7 @@ const requestLocationPermission = async () => {
               borderRadius: 5,
               alignItems: "center",
               justifyContent: "center",
-            }, { width: "25%", height: 30, marginHorizontal: 5 }]}>
+            }, {  minWidth: "25%", minHeight: 30, marginHorizontal: 5 }]}>
             <Text style={[styles.tabText, { color: selectedFilter === translate("Hourly") ? Colors.secondaryColor : Colors.app_theme_color, fontFamily : global.fontStyles.Regular }]}>3 {translate("Hourly")}</Text>
           </TouchableOpacity>
 
@@ -708,7 +722,7 @@ const requestLocationPermission = async () => {
               borderRadius: 5,
               alignItems: "center",
               justifyContent: "center",
-            }, { width: "25%", height: 30, }]}>
+            }, {  minWidth: "25%",minHeight: 30, }]}>
             <Text style={[styles.tabText, { color: selectedFilter === translate('PestForecast') ? Colors.secondaryColor : Colors.app_theme_color,fontFamily : global.fontStyles.Regular }]}>{translate('PestForecast')}</Text>
           </TouchableOpacity>
         </View>
@@ -816,11 +830,11 @@ const requestLocationPermission = async () => {
             nestedScrollEnabled={true}
             showsVerticalScrollIndicator={false}
             ListFooterComponent={<View style={{ height: 50 }} />}
-            ListEmptyComponent={() => (
-              <View style={{ flex: 1, height: Dimensions.get('window').height - 200, justifyContent: 'center', alignItems: 'center', }}>
-                <Text style={{ fontFamily: global.fontStyles.SemiBold, fontSize: 16, color: Colors.black_color, textAlign: 'center', width: '90%' }}>{isConnected ? translate('location_error') : translate('no_internet_connected')}</Text>
-              </View>
-            )}
+            // ListEmptyComponent={() => (
+            //   <View style={{ flex: 1, height: Dimensions.get('window').height - 200, justifyContent: 'center', alignItems: 'center', }}>
+            //     <Text style={{ fontFamily: global.fontStyles.SemiBold, fontSize: 16, color: Colors.black_color, textAlign: 'center', width: '90%' }}>{isConnected ? translate('location_error') : translate('no_internet_connected')}</Text>
+            //   </View>
+            // )}
             renderItem={({ item }) => {
               return (
                 JSON.stringify(selectedWeather) === JSON.stringify(item) ? <View
@@ -1093,8 +1107,9 @@ const requestLocationPermission = async () => {
             </View>
           </View>
         </Modal>
-        {loader && <CustomLoader visible={loader} />}
       </View>
+      {loader && <CustomLoader visible={loader} />}
+    </>
   );
 };
 
