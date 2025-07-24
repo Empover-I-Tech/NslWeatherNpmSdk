@@ -244,7 +244,9 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         color: Colors.black_color,
         marginBottom: 8,
-        fontSize: 14
+        fontSize: 14,
+        // borderWidth:1,
+        height:35
     },
     textInputContainer: {
         backgroundColor: Colors.white_color,
