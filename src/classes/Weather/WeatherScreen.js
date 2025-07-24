@@ -76,7 +76,7 @@ const WeatherScreen = ({ route }) => {
 
       useFocusEffect(
         useCallback(() => {
-            setLoader(true)
+            // setLoader(true)
         }, [])
     );
   console.log("checki=-=-=-=-Latitude", latitude, longitude)
