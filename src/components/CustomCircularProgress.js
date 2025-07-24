@@ -38,7 +38,7 @@ const CustomCircularProgress = ({ percentage = 75, radius = 30, strokeWidth = 6,
             </View>
             <View style={styles.textWrapper}>
                 {/* <Text style={styles.text}>{`${percentageText}%`}</Text> */}
-                {!hideStatus && <Text style={styles.subText}>{level}</Text>}
+                {!hideStatus && <Text style={[styles.subText,{fontFamily : global.fontStyles.Regular}]}>{level}</Text>}
             </View>
         </View>
     );

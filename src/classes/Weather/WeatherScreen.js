@@ -585,7 +585,7 @@ const requestLocationPermission = async () => {
 
                   {todayForecast[0]?.max_temp ?
                     <View style={styles.todayForecastMaxTempContainer}>
-                      <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 34 }]}>
+                      <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 34 , fontFamily : global.fontStyles.Regular}]}>
                         {Math.round(todayForecast[0]?.max_temp)}
                       </Text>
                       <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3, fontFamily : global.fontStyles.Regular }]}>{"°c"}</Text>
@@ -718,7 +718,7 @@ const requestLocationPermission = async () => {
 
             <View style={[styles.locationTimeContainer, { marginBottom: 0, }]}>
               <View style={[styles.locationContainer, { flexDirection: "column", alignItems: "center", }]}>
-                <Text style={[styles.tempText, styles.locationDetailsText]}>
+                <Text style={[styles.tempText, styles.locationDetailsText,{fontFamily : global.fontStyles.Regular }]}>
                   {translate("Location_Details")}
                 </Text>
               </View>
@@ -755,14 +755,14 @@ const requestLocationPermission = async () => {
             {cropList && cropList.length > 0 ? (
               <View style={styles.cropsListMaincontainer}>
                 <View style={styles.calendarDropDownMainContainer}>
-                  <Text style={styles.sowingdateText}>{translate("Crop")}</Text>
+                  <Text style={[styles.sowingdateText,{fontFamily : global.fontStyles.SemiBold }]}>{translate("Crop")}</Text>
                   <TouchableOpacity onPress={() => setShowDropDowns(true)} style={[styles.textInputContainer, { borderColor: Colors.lightish_grey }]}>
                     <Text style={[styles.selectCropTextInput,{fontFamily : global.fontStyles.Regular}]}>{selectedCrop != undefined && selectedCrop != translate('select') ? selectedCrop : translate('select')}</Text>
                     <Image source={require('../../assets/Images/down_arow.png')} style={[styles.dropDownIcon, { tintColor: Colors.black_color }]} />
                   </TouchableOpacity>
                 </View>
                 <View style={styles.calendarDropDownMainContainer}>
-                  <Text style={styles.sowingdateText}>{translate("sowing_date")}</Text>
+                  <Text style={[styles.sowingdateText,{fontFamily : global.fontStyles.SemiBold }]}>{translate("sowing_date")}</Text>
                   <TouchableOpacity onPress={handleDateModal} style={[styles.textInputContainer, { borderColor: Colors.lightish_grey }]}>
                     <Text style={[styles.selectCropTextInput,{fontFamily : global.fontStyles.Regular}]}>{selectedDatePest}</Text>
                     <Image source={require('../../assets/Images/calendarIcon.png')} style={[styles.dropDownIcon, { tintColor: Colors.textColor }]} />
@@ -770,7 +770,7 @@ const requestLocationPermission = async () => {
                 </View>
               </View>) : (
               <View style={{ alignItems: "center", justifyContent: "center", marginTop: 20, height: 60 }}>
-                <Text style={{ fontFamily: "500", fontSize: 16, color: Colors.black_color }}>
+                <Text style={{ fontFamily:global.fontStyles.SemiBold, fontSize: 16, color: Colors.black_color }}>
                   {isConnected ? translate('location_error') : translate('no_internet_connected')}
                 </Text>
               </View>)}
@@ -818,7 +818,7 @@ const requestLocationPermission = async () => {
             ListFooterComponent={<View style={{ height: 50 }} />}
             ListEmptyComponent={() => (
               <View style={{ flex: 1, height: Dimensions.get('window').height - 200, justifyContent: 'center', alignItems: 'center', }}>
-                <Text style={{ fontFamily: "500", fontSize: 16, color: Colors.black_color, textAlign: 'center', width: '90%' }}>{isConnected ? translate('location_error') : translate('no_internet_connected')}</Text>
+                <Text style={{ fontFamily: global.fontStyles.SemiBold, fontSize: 16, color: Colors.black_color, textAlign: 'center', width: '90%' }}>{isConnected ? translate('location_error') : translate('no_internet_connected')}</Text>
               </View>
             )}
             renderItem={({ item }) => {
@@ -828,7 +828,7 @@ const requestLocationPermission = async () => {
                   <View style={[styles.locationTimeContainer, { marginBottom: 0, }]}>
 
                     <View style={[styles.locationContainer, { flexDirection: "column", alignItems: "center", }]}>
-                      <Text style={[styles.tempText, { color: Colors.textColor, marginHorizontal: 0, textAlign: "left", alignSelf: "flex-start" }]}>
+                      <Text style={[styles.tempText, { color: Colors.textColor, marginHorizontal: 0, textAlign: "left", alignSelf: "flex-start",fontFamily : global.fontStyles.Regular }]}>
                         {selectedWeather?.data[0]?.displayDay}
                       </Text>
                       <Text style={[styles.rangeText,{fontFamily : global.fontStyles.Regular}]}>
@@ -873,10 +873,10 @@ const requestLocationPermission = async () => {
 
                         {selectedWeather?.data[0]?.max_temp ?
                           <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 34 }]}>
+                            <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 34 ,fontFamily : global.fontStyles.Regular }]}>
                               {Math.round(selectedWeather?.data[0]?.max_temp)}
                             </Text>
-                            <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3 }]}>{"°c"}</Text>
+                            <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3,fontFamily : global.fontStyles.Regular  }]}>{"°c"}</Text>
                           </View> : <Text style={[styles.tempText, { color: Colors.textColor }]}>
                             {'--'}
                           </Text>}
@@ -948,13 +948,13 @@ const requestLocationPermission = async () => {
                           <Text style={[styles.forecastTemp, { color: Colors.textColor, width: 25,fontFamily : global.fontStyles.SemiBold }]}>
                             {Math.round(subItem?.max_temp) || '--'}
                           </Text>
-                          <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3 }]}>{"°c"}</Text>
+                          <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: -3 ,fontFamily : global.fontStyles.SemiBold }]}>{"°c"}</Text>
                         </View>
                         {subItem?.image &&
                           <Image source={{ uri: subItem?.image }} style={styles.forecastIcon} />
                         }
 
-                        <Text style={[styles.forecastTemp, { color: Colors.textColor, fontFamily: "", fontFamily: global.fontStyles.Regular }]}>
+                        <Text style={[styles.forecastTemp, { color: Colors.textColor,fontFamily: global.fontStyles.Regular }]}>
                           {subItem.time}
                         </Text>
                       </View>
@@ -983,7 +983,7 @@ const requestLocationPermission = async () => {
                     <View style={styles.tempContainer}>
                       {(
                         <View style={styles.tempWrapper}>
-                          <Text style={[styles.tempText, { color: Colors.textColor }]}>
+                          <Text style={[styles.tempText, { color: Colors.textColor,fontFamily:global.fontStyles.Regular }]}>
                             {selectedFilter === translate("Days_Forecast_15") ? item?.displayDay : item?.data[0]?.displayDay || '--'}
                           </Text>
                         </View>
@@ -1002,10 +1002,10 @@ const requestLocationPermission = async () => {
                         resizeMode: "contain"
                       }} />
                       <View style={styles.tempWrapper}>
-                        <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 27, marginTop: 10 }]}>
+                        <Text style={[styles.tempText, { color: Colors.textColor, fontSize: 27, marginTop: 10,fontFamily:global.fontStyles.Regular }]}>
                           {Math.round(selectedFilter !== translate("Days_Forecast_15") ? item?.data[0]?.max_temp : item?.max_temp) || '--'}
                         </Text>
-                        <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: 5 }]}>{"°c"}</Text>
+                        <Text style={[styles.degreeText, { color: Colors.textColor, marginTop: 5,fontFamily:global.fontStyles.Regular }]}>{"°c"}</Text>
                       </View>
                     </View>
                     {selectedFilter !== translate("Days_Forecast_15") && <View style={[{ backgroundColor: Colors.app_theme_color, borderRadius: 5, padding: 5, alignItems: "center", justifyContent: "center" }]}>
@@ -1030,11 +1030,18 @@ const requestLocationPermission = async () => {
                   <Image source={require("../../assets/Images/crossIcon.png")} style={{ height: 10, width: 10, resizeMode: "contain", tintColor: Colors.white_color }} />
                 </TouchableOpacity>
                 <Calendar
+                theme={{
+                  textDayFontFamily: fonts.Regular, 
+                  textMonthFontFamily: fonts.Bold,
+                  textDayHeaderFontFamily: fonts.Regular,
+                }}
                   onDayPress={(day) => {
                     setSelectedDatePest(moment(day.dateString, "YYYY-MM-DD HH:mm:ss.S").format("DD-MMM-YYYY"));
                     setRawDate(day.dateString)
                     getDiseasesFromMap(day.dateString)
                     setCalendarVisible(false);
+                    
+
                   }}
                   markedDates={
                     selectedDate ? { [selectedDate]: { selected: true, marked: true, selectedColor: Colors.app_theme_color } } : {}
@@ -1067,7 +1074,7 @@ const requestLocationPermission = async () => {
                   renderItem={({ item, index }) => (
                     <TouchableOpacity onPress={() => onPressDropdownItem(item)}>
                       <View style={styles.flatListRenderStyles}>
-                        <Text style={{ color: Colors.textColor, fontSize: 14, lineHeight: 25 }}>{item.name}</Text>
+                        <Text style={{ color: Colors.textColor, fontSize: 14, lineHeight: 25,fontFamily : global.fontStyles.SemiBold }}>{item.name}</Text>
                       </View>
                       {cropList.length - 1 !== index &&
                         <View style={styles.lineDivider} />

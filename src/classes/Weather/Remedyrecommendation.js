@@ -65,7 +65,7 @@ const Remedyrecommendation = ({ route }) => {
           <View style={styles.remedySubContainer}>
             <View style={{ width: "78%" }}>
               <Text style={[styles.remedyNameText,{fontFamily : global.fontStyles.Bold}]}>{pests}</Text>
-              <Text style={styles.remedyDescription}>{description}</Text>
+              <Text style={[styles.remedyDescription,{fontFamily : global.fontStyles.SemiBold}]}>{description}</Text>
             </View>
             {diseaseData?.percentage && <CustomCircularProgress
               percentage={diseaseData?.percentage} radius={25} strokeWidth={6} percentageText={diseaseData?.percentage} level={diseaseData?.level}
@@ -73,7 +73,7 @@ const Remedyrecommendation = ({ route }) => {
           </View>
           <View style={styles.dividerTwo} />
           <View style={{ margin: 10 }}>
-            <Text style={styles.dignosisText}>{diagnosis}</Text>
+            <Text style={[styles.dignosisText,{fontFamily : global.fontStyles.SemiBold}]}>{diagnosis}</Text>
             <View style={{ maxHeight: height * 0.55 }}>
               <ScrollView nestedScrollEnabled={true}>
                 {
@@ -81,8 +81,8 @@ const Remedyrecommendation = ({ route }) => {
                     advisory?.map((item, index) => {
                       return (
                         <View style={styles.remedyPointsContainer}>
-                          <Text style={styles.remedyPintsText}>{index + 1} </Text>
-                          <Text style={styles.remedyPintsText}>{item?.point}</Text>
+                          <Text style={[styles.remedyPintsText,{fontFamily : global.fontStyles.Regular}]}>{index + 1} </Text>
+                          <Text style={[styles.remedyPintsText.color,{fontFamily : global.fontStyles.Regular}]}>{item?.point}</Text>
                         </View>
                       )
                     })
