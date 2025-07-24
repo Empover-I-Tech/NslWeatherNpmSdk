@@ -1031,9 +1031,9 @@ const requestLocationPermission = async () => {
                 </TouchableOpacity>
                 <Calendar
                 theme={{
-                  textDayFontFamily: fonts.Regular, 
-                  textMonthFontFamily: fonts.Bold,
-                  textDayHeaderFontFamily: fonts.Regular,
+                  textDayFontFamily: global.fontStyles.Regular, 
+                  textMonthFontFamily: global.fontStyles.Bold,
+                  textDayHeaderFontFamily: global.fontStyles.Regular,
                 }}
                   onDayPress={(day) => {
                     setSelectedDatePest(moment(day.dateString, "YYYY-MM-DD HH:mm:ss.S").format("DD-MMM-YYYY"));
