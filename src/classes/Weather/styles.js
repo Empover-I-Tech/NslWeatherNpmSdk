@@ -5,7 +5,7 @@ const { height, width } = Dimensions.get("window")
 
 const styles = StyleSheet.create({
     weatherSafeAreaContainer: {
-        paddingTop:Platform.OS==="android"?StatusBar.currentHeight:0
+        // paddingTop:Platform.OS==="android"?StatusBar.currentHeight+30:0
     },
     mainContainer: {
         flex: 1,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         width: "100%",
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
-        height: 60,
+        // height: 60,
     },
     mainSubHeadersContainer: {
         flexDirection: "row",
@@ -181,7 +181,8 @@ const styles = StyleSheet.create({
         // fontWeight: "300",
         fontSize: 10,
         marginTop: 1,
-        textAlign: "center"
+        textAlign: "center",
+        lineHeight:20
     },
     weatherInfOCard1: {
         marginBottom: 5,
